@@ -1,0 +1,21 @@
+<script lang='javascript'>
+  $(document).ready(function() {
+    load_head();
+    load_timeline();
+  });
+</script>
+<div class='title'>WMO Common Dashboard (Dev)</div>
+<table width='100%'>
+  <tr>
+    <td style='vertical-align:top;'>
+      <div id='beijing' class='tiles_centre'></div>
+    </td>
+    <td style='vertical-align:top;'>
+      <div id='offenbach' class='tiles_centre'></div>
+    </td>
+    <td style='vertical-align:top;'>
+      <div id='tokyo' class='tiles_centre'></div>
+    </td>
+  </tr>
+</table>
+<div id='timeline' style='font: 10px sans-serif'></div>

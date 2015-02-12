@@ -1,0 +1,24 @@
+<script lang='javascript'>
+  $(document).ready(function() {
+    load_head();
+    load_centres();
+    //load_mdstat();
+    //setInterval(load_centres, 30000);
+  });
+</script>
+<div class='title'>WMO Common Dashboard (v.11)</div>
+<div class='subtitle'>GISC Beijing, updated at 2015-2-6</div>
+<table width='100%'>
+  <tr>
+    <td style='vertical-align:top;'>
+      <div id='beijing' class='tiles_centre'></div>
+    </td>
+    <td style='vertical-align:top;'>
+      <div id='offenbach' class='tiles_centre'></div>
+    </td>
+    <td style='vertical-align:top;'>
+      <div id='tokyo' class='tiles_centre'></div>
+    </td>
+  </tr>
+</table>
+<div id='MDStat_'></div>

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {{<head}}
+  {{/head}}
+</head>
+<body class='metro'>
+  {{>body}}
+</body>
+</html>

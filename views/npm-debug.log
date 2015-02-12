@@ -1,0 +1,88 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/kavlar/bin/node',
+1 verbose cli   '/home/kavlar/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '--save',
+1 verbose cli   'hunmanize' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose readDependencies using package.json deps
+5 verbose cache add [ 'hunmanize', null ]
+6 verbose cache add name=undefined spec="hunmanize" args=["hunmanize",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'hunmanize',
+7 verbose parsed url   path: 'hunmanize',
+7 verbose parsed url   href: 'hunmanize' }
+8 silly lockFile 5c9fe247-hunmanize hunmanize
+9 verbose lock hunmanize /home/kavlar/.npm/5c9fe247-hunmanize.lock
+10 silly lockFile 5c9fe247-hunmanize hunmanize
+11 silly lockFile 5c9fe247-hunmanize hunmanize
+12 verbose addNamed [ 'hunmanize', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile 476864cb-hunmanize hunmanize@
+15 verbose lock hunmanize@ /home/kavlar/.npm/476864cb-hunmanize.lock
+16 silly addNameRange { name: 'hunmanize', range: '*', hasData: false }
+17 verbose request where is /hunmanize
+18 verbose request registry https://registry.npmjs.org/
+19 verbose request id 89e6c17f375ad24c
+20 verbose url raw /hunmanize
+21 verbose url resolving [ 'https://registry.npmjs.org/', './hunmanize' ]
+22 verbose url resolved https://registry.npmjs.org/hunmanize
+23 verbose request where is https://registry.npmjs.org/hunmanize
+24 info trying registry request attempt 1 at 08:42:14
+25 http GET https://registry.npmjs.org/hunmanize
+26 http 404 https://registry.npmjs.org/hunmanize
+27 verbose headers { date: 'Wed, 07 Jan 2015 08:42:16 GMT',
+27 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+27 verbose headers   'content-type': 'application/json',
+27 verbose headers   'cache-control': 'max-age=0',
+27 verbose headers   'content-length': '52',
+27 verbose headers   'accept-ranges': 'bytes',
+27 verbose headers   via: '1.1 varnish',
+27 verbose headers   age: '0',
+27 verbose headers   'x-served-by': 'cache-hk90-HKG',
+27 verbose headers   'x-cache': 'MISS',
+27 verbose headers   'x-cache-hits': '0',
+27 verbose headers   'x-timer': 'S1420620136.064386,VS0,VE238',
+27 verbose headers   'keep-alive': 'timeout=10, max=50',
+27 verbose headers   connection: 'Keep-Alive' }
+28 silly registry.get cb [ 404,
+28 silly registry.get   { date: 'Wed, 07 Jan 2015 08:42:16 GMT',
+28 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+28 silly registry.get     'content-type': 'application/json',
+28 silly registry.get     'cache-control': 'max-age=0',
+28 silly registry.get     'content-length': '52',
+28 silly registry.get     'accept-ranges': 'bytes',
+28 silly registry.get     via: '1.1 varnish',
+28 silly registry.get     age: '0',
+28 silly registry.get     'x-served-by': 'cache-hk90-HKG',
+28 silly registry.get     'x-cache': 'MISS',
+28 silly registry.get     'x-cache-hits': '0',
+28 silly registry.get     'x-timer': 'S1420620136.064386,VS0,VE238',
+28 silly registry.get     'keep-alive': 'timeout=10, max=50',
+28 silly registry.get     connection: 'Keep-Alive' } ]
+29 silly lockFile 476864cb-hunmanize hunmanize@
+30 silly lockFile 476864cb-hunmanize hunmanize@
+31 error 404 404 Not Found: hunmanize
+31 error 404
+31 error 404 'hunmanize' is not in the npm registry.
+31 error 404 You should bug the author to publish it
+31 error 404 It was specified as a dependency of 'wismon'
+31 error 404
+31 error 404 Note that you can also install from a
+31 error 404 tarball, folder, or http url, or git url.
+32 error System SunOS 5.11
+33 error command "/home/kavlar/bin/node" "/home/kavlar/bin/npm" "install" "--save" "hunmanize"
+34 error cwd /home/kavlar/wismon/views
+35 error node -v v0.10.33
+36 error npm -v 1.4.28
+37 error code E404
+38 verbose exit [ 1, true ]

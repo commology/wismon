@@ -1,0 +1,12 @@
+{
+    "wmo_wis_monitoring": "1.0",
+    "centre": "GISC Beijing",
+    "timestamp": "2014-11-10T00:00:00Z",
+    "centres": [
+        {
+            "centre" : "HK",
+            "count" : 0,
+            "volumesize" : 0
+        }
+    ]
+}

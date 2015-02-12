@@ -1,0 +1,45 @@
+{
+    "wmo_wis_monitoring": "1.0",
+    "centre": "WIS_CENTRE_NAME",
+    "timestamp": "2014-11-10T00:00:00Z",
+    "gisc_properties": {
+        "catalogue_url": "WIS_CENTRE_PORTAL_URL",
+        "monitor_url": "WIS_CENTRE_MONITOR_URL",
+        "oai_url": "WIS_CENTRE_OAI_PROVIDER_URL",
+        "events_url": "WIS_CENTRE_MAINTENANCE_EVENTS_URL",
+        "centres_inAoR_url": "WIS_CENTRE_AOR_CENTRES_URL",
+        "backup_giscs": [],
+        "contact_info": {
+            "voice": "WIS_CENTRE_CONTACT_TEL",
+            "email": "WIS_CENTRE_CONTACT_MAIL"
+        }
+    },
+    "metrics": {
+        "rmdcn": "RMDCN_BANDWIDTH_DIAGRAM_URL",
+        "metadata_catalogue": {
+            "number_of_records_at00UTC": 0,
+            "number_of_changes_insert_modify": 0,
+            "number_of_changes_delete": 0
+        },
+        "cache_24h": {
+            "number_of_products_all": 0,
+            "number_of_products_without_metadata": 0,
+            "bytes_of_cache_all": 0,
+            "bytes_of_cache_without_metadata": 0,
+            "number_of_unique_products_without_metadata_AMDCN": -1,
+            "number_of_unique_products_without_metadata_all": -1
+        },
+        "services": {
+            "oai_pmh": {
+                "status": false
+            },
+            "catalogue": {
+                "status": false
+            },
+            "distribution_system": {
+                "status": false
+            }
+        }
+    },
+    "remarks": "REMARKS"
+}

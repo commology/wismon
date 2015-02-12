@@ -1,0 +1,11 @@
+  <title>WIS Monitoring</title>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  <link rel='stylesheet' href='/monitor/test/css/jquery-ui.min.css' />
+  <link rel='stylesheet' href='/monitor/test/css/style.css' />
+  <script lang='javascript' type='text/javascript' src='/monitor/test/js/jquery.min.js'></script>
+  <script lang='javascript' type='text/javascript' src='/monitor/test/js/jquery-ui.min.js'></script>
+  <script lang='javascript' type='text/javascript' src='/monitor/test/js/chart.min.js'></script>
+  <script lang='javascript' type='text/javascript' src='/monitor/test/amcharts/amcharts.js'></script>
+  <script lang='javascript' type='text/javascript' src='/monitor/test/amcharts/serial.js'></script>
+  <script lang='javascript' type='text/javascript' src='/monitor/test/js/dashboard.js'></script>

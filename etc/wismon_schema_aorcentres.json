@@ -1,0 +1,50 @@
+{
+    "type":"object",
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "id": "http://jsonschema.net",
+    "required":true,
+    "properties":{
+        "centre": {
+            "type":"string",
+            "id": "http://jsonschema.net/centre",
+            "required":true
+        },
+        "centres": {
+            "type":"array",
+            "id": "http://jsonschema.net/centres",
+            "required":true,
+            "items": {
+                    "type":"object",
+                    "id": "http://jsonschema.net/centres/0",
+                    "required":true,
+                    "properties":{
+                        "centre": {
+                            "type":"string",
+                            "id": "http://jsonschema.net/centres/0/centre",
+                            "required":true
+                        },
+                        "count": {
+                            "type":"number",
+                            "id": "http://jsonschema.net/centres/0/count",
+                            "required":true
+                        },
+                        "volumesize": {
+                            "type":"number",
+                            "id": "http://jsonschema.net/centres/0/volumesize",
+                            "required":true
+                        }
+                    }
+                }
+        },
+        "timestamp": {
+            "type":"string",
+            "id": "http://jsonschema.net/timestamp",
+            "required":true
+        },
+        "wmo_wis_monitoring": {
+            "type":"string",
+            "id": "http://jsonschema.net/wmo_wis_monitoring",
+            "required":true
+        }
+    }
+}

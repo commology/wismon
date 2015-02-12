@@ -1,0 +1,202 @@
+{
+    "type":"object",
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "id": "http://jsonschema.net",
+    "required":false,
+    "properties":{
+        "centre": {
+            "type":"string",
+            "id": "http://jsonschema.net/centre",
+            "required":true
+        },
+        "gisc_properties": {
+            "type":"object",
+            "id": "http://jsonschema.net/gisc_properties",
+            "required":true,
+            "properties": {
+                "backup_giscs": {
+                    "type":"array",
+                    "id": "http://jsonschema.net/gisc_properties/backup_giscs",
+                    "required":false,
+                    "items":
+                        {
+                            "type":"string",
+                            "id": "http://jsonschema.net/gisc_properties/backup_giscs/0",
+                            "required":false
+                        }
+                },
+                "catalogue_url": {
+                    "type":"string",
+                    "id": "http://jsonschema.net/gisc_properties/catalogue_url",
+                    "required":true
+                },
+                "contact_info": {
+                    "type":"object",
+                    "id": "http://jsonschema.net/gisc_properties/contact_info",
+                    "required":false,
+                    "properties":{
+                        "email": {
+                            "type":"string",
+                            "id": "http://jsonschema.net/gisc_properties/contact_info/email",
+                            "required":false
+                        },
+                        "voice": {
+                            "type":"string",
+                            "id": "http://jsonschema.net/gisc_properties/contact_info/voice",
+                            "required":false
+                        }
+                    }
+                },
+                "events_url": {
+                    "type":"string",
+                    "id": "http://jsonschema.net/gisc_properties/events_url",
+                    "required":false
+                },
+                "centres_inAoR_url": {
+                    "type":"string",
+                    "id": "http://jsonschema.net/gisc_properties/centres_url",
+                    "required":false
+                },
+                "monitor_url": {
+                    "type":"string",
+                    "id": "http://jsonschema.net/gisc_properties/monitor_url",
+                    "required":false
+                },
+                "oai_url": {
+                    "type":"string",
+                    "id": "http://jsonschema.net/gisc_properties/oai_url",
+                    "required":true
+                }
+            }
+        },
+        "metrics": {
+            "type":"object",
+            "id": "http://jsonschema.net/metrics",
+            "required":true,
+            "properties":{
+                "cache_24h": {
+                    "type":"object",
+                    "id": "http://jsonschema.net/metrics/cache_24h",
+                    "required":false,
+                    "properties":{
+                        "bytes_of_cache_all": {
+                            "type":"number",
+                            "id": "http://jsonschema.net/metrics/cache_24h/bytes_of_cache_all",
+                            "required":false
+                        },
+                        "bytes_of_cache_without_metadata": {
+                            "type":"number",
+                            "id": "http://jsonschema.net/metrics/cache_24h/bytes_of_cache_without_metadata",
+                            "required":false
+                        },
+                        "number_of_products_all": {
+                            "type":"number",
+                            "id": "http://jsonschema.net/metrics/cache_24h/number_of_products_all",
+                            "required":false
+                        },
+                        "number_of_products_without_metadata": {
+                            "type":"number",
+                            "id": "http://jsonschema.net/metrics/cache_24h/number_of_products_without_metadata",
+                            "required":false
+                        },
+                        "number_of_unique_products_without_metadata_AMDCN": {
+                            "type":"number",
+                            "id": "http://jsonschema.net/metrics/cache_24h/number_of_unique_products_without_metadata_AMDCN",
+                            "required":false
+                        },
+                        "number_of_unique_products_without_metadata_all": {
+                            "type":"number",
+                            "id": "http://jsonschema.net/metrics/cache_24h/number_of_unique_products_without_metadata_all",
+                            "required":false
+                        }
+                    }
+                },
+                "metadata_catalogue": {
+                    "type":"object",
+                    "id": "http://jsonschema.net/metrics/metadata_catalogue",
+                    "required":false,
+                    "properties":{
+                        "number_of_changes_delete": {
+                            "type":"number",
+                            "id": "http://jsonschema.net/metrics/metadata_catalogue/number_of_changes_delete",
+                            "required":false
+                        },
+                        "number_of_changes_insert_modify": {
+                            "type":"number",
+                            "id": "http://jsonschema.net/metrics/metadata_catalogue/number_of_changes_insert_modify",
+                            "required":false
+                        },
+                        "number_of_records_at00UTC": {
+                            "type":"number",
+                            "id": "http://jsonschema.net/metrics/metadata_catalogue/number_of_records_at00UTC",
+                            "required":false
+                        }
+                    }
+                },
+                "rmdcn": {
+                    "type":"string",
+                    "id": "http://jsonschema.net/metrics/rmdcn",
+                    "required":false
+                },
+                "services": {
+                    "type":"object",
+                    "id": "http://jsonschema.net/metrics/services",
+                    "required":true,
+                    "properties":{
+                        "catalogue": {
+                            "type":"object",
+                            "id": "http://jsonschema.net/metrics/services/catalogue",
+                            "required":true,
+                            "properties":{
+                                "status": {
+                                    "type":"boolean",
+                                    "id": "http://jsonschema.net/metrics/services/catalogue/status",
+                                    "required":true
+                                }
+                            }
+                        },
+                        "distribution_system": {
+                            "type":"object",
+                            "id": "http://jsonschema.net/metrics/services/distribution_system",
+                            "required":true,
+                            "properties":{
+                                "status": {
+                                    "type":"boolean",
+                                    "id": "http://jsonschema.net/metrics/services/distribution_system/status",
+                                    "required":true
+                                }
+                            }
+                        },
+                        "oai_pmh": {
+                            "type":"object",
+                            "id": "http://jsonschema.net/metrics/services/oai_pmh",
+                            "required":true,
+                            "properties":{
+                                "status": {
+                                    "type":"boolean",
+                                    "id": "http://jsonschema.net/metrics/services/oai_pmh/status",
+                                    "required":true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "remarks": {
+            "type":"string",
+            "id": "http://jsonschema.net/remarks",
+            "required":false
+        },
+        "timestamp": {
+            "type":"string",
+            "id": "http://jsonschema.net/timestamp",
+            "required":true
+        },
+        "wmo_wis_monitoring": {
+            "type":"string",
+            "id": "http://jsonschema.net/wmo_wis_monitoring",
+            "required":true
+        }
+    }
+}

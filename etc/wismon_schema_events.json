@@ -1,0 +1,60 @@
+{
+    "type":"object",
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "id": "http://jsonschema.net",
+    "required":false,
+    "properties":{
+        "centre": {
+            "type":"string",
+            "id": "http://jsonschema.net/centre",
+            "required":true
+        },
+        "events": {
+            "type":"array",
+            "id": "http://jsonschema.net/events",
+            "required":true,
+            "items": {
+                    "type":"object",
+                    "id": "http://jsonschema.net/events/0",
+                    "required":true,
+                    "properties":{
+                        "end": {
+                            "type":"string",
+                            "id": "http://jsonschema.net/events/0/end",
+                            "required":true
+                        },
+                        "id": {
+                            "type":"number",
+                            "id": "http://jsonschema.net/events/0/id",
+                            "required":true
+                        },
+                        "start": {
+                            "type":"string",
+                            "id": "http://jsonschema.net/events/0/start",
+                            "required":true
+                        },
+                        "text": {
+                            "type":"string",
+                            "id": "http://jsonschema.net/events/0/text",
+                            "required":true
+                        },
+                        "title": {
+                            "type":"string",
+                            "id": "http://jsonschema.net/events/0/title",
+                            "required":true
+                        }
+                    }
+                }
+        },
+        "timestamp": {
+            "type":"string",
+            "id": "http://jsonschema.net/timestamp",
+            "required":true
+        },
+        "wmo_wis_monitoring": {
+            "type":"string",
+            "id": "http://jsonschema.net/wmo_wis_monitoring",
+            "required":true
+        }
+    }
+}
