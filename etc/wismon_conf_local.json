@@ -1,0 +1,18 @@
+{
+  "HOME_CENTRE_ID": "beijing",
+  "HOME_METADATA_SETSPEC": "WIS-CATALOGUE",
+  "HOME_CONTACT_TEL": "+8601068406710",
+  "HOME_CONTACT_MAIL": "giscadmin@cma.gov.cn",
+  "HOME_BACKUP_CENTRES": [
+    "GISC Melbourne",
+    "GISC Offenbach",
+    "GISC Tokyo"
+  ],
+  "REMARKS": "JSON template updated at 2015-2-11 00Z",
+  "RMDCN_BANDWIDTH_DIAGRAM_URL": "http://rmdcn.ecmwf.int/p/techinfo/_cricket/png/CPE-NMET1-IPVPN-158617/",
+
+  "WIS_MONITOR_SERVICE_ONLINE": true,
+  "WIS_MONITOR_SERVICE_OFFLINE": false,
+  
+  "WISMON_WEB_HOME_PATH": "/monitor/test"
+}

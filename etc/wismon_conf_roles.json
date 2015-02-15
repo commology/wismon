@@ -1,0 +1,21 @@
+{
+  "UPLOAD_MONITOR_JSON": {
+    "NOTE": "",
+    "ID": [
+      "beijing",
+      "hongkong",
+      "offenbach",
+      "tokyo",
+      "master"
+    ],
+    "ENABLED": true
+  },
+  "VIEW_OAI_STATISTICS": {
+    "NOTE": "",
+    "ID": [
+      "beijing",
+      "master"
+    ],
+    "ENABLED": true
+  }
+}
