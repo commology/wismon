@@ -6,8 +6,8 @@
     //setInterval(load_centres, 30000);
   });
 </script>
-<div class='title'>WMO Common Dashboard (v.11)</div>
-<div class='subtitle'>GISC Beijing, updated at 2015-2-6</div>
+<div class='title'>WMO Common Dashboard (v.19)</div>
+<div class='subtitle'>GISC Beijing, updated at 2015-2-16</div>
 <table width='100%'>
   <tr>
     <td style='vertical-align:top;'>

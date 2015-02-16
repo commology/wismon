@@ -1,0 +1,19 @@
+{
+    "wmo_wis_monitoring": "1.0",
+    "centre": "WIS_CENTRE_NAME",
+    "timestamp": "2014-11-10T00:00:00Z",
+    "metrics": {
+        "services": {
+            "oai_pmh": {
+                "status": false
+            },
+            "catalogue": {
+                "status": false
+            },
+            "distribution_system": {
+                "status": false
+            }
+        }
+    },
+    "remarks": "REMARKS"
+}

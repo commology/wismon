@@ -9,9 +9,11 @@
               <div class='item-title' style='font: 18px arial;'>{{centre}}</div>
             </div>
 
-            <div id='service_status_{{centreID}}_portal_mini' title='Web Portal' class='icon-home RGYlight_mini' style="position:absolute; right:60px; top:0;"></div>
-            <div id='service_status_{{centreID}}_oaiprovider_mini' title='OAI Provider' class='icon-puzzle RGYlight_mini' style="position:absolute; right:30px; top:0;"></div>
-            <div id='service_status_{{centreID}}_distribution_mini' title='Distribution' class='icon-loop RGYlight_mini' style="position:absolute; right:0px; top:0;"></div>
+            <div id='servie_status_portal_mini' title='Web Portal' class='icon-home RGYlight_mini RGYlight_R' style="position:absolute; right:60px; top:0;"></div>
+
+            <div id='service_status_oaiprovider_mini' title='OAI Provider' class='icon-puzzle RGYlight_mini RGYlight_R' style="position:absolute; right:30px; top:0;"></div>
+
+            <div id='service_status_distribution' title='Distribution' class='icon-loop RGYlight_mini RGYlight_R' style="position:absolute; right:0px; top:0;"></div>
 
           </div>
           <div class='content' style='padding-bottom:10px; background-color:#C9E1FF;'>
@@ -24,15 +26,30 @@
                   <div class='content' style='padding-top:10px; background-color:#E9F6FF'>
                     <div id='services' class='row' style='margin-top:0px; padding:10px; display:;'>
                       <div class='span1'>
-                        <a id='service_status_{{centreID}}_portal_main' href='{{gisc_properties.catalogue_url}}' title='{{gisc_properties.catalogue_url}}' class='icon-home RGYlight_main'></a>
+                        {{#metrics.services.catalogue.status}}
+                        <a href='{{gisc_properties.catalogue_url}}' title='{{gisc_properties.catalogue_url}}' class='icon-home RGYlight_main RGYlight_G'></a>
+                        {{/metrics.services.catalogue.status}}
+                        {{^metrics.services.catalogue.status}}
+                        <a href='{{gisc_properties.catalogue_url}}' title='{{gisc_properties.catalogue_url}}' class='icon-home RGYlight_main RGYlight_R'></a>
+                        {{/metrics.services.catalogue.status}}
                         <div class='status_caption'>Web Portal</div>
                       </div>
                       <div class='span1'>
-                        <a id='service_status_{{centreID}}_oaiprovider_main' href='{{gisc_properties.oai_url}}' title='{{gisc_properties.oai_url}}' class='icon-puzzle RGYlight_main'></a>
+                        {{#metrics.services.oai_pmh.status}}
+                        <a href='{{gisc_properties.oai_url}}' title='{{gisc_properties.oai_url}}' class='icon-puzzle RGYlight_main RGYlight_G'></a>
+                        {{/metrics.services.oai_pmh.status}}
+                        {{^metrics.services.oai_pmh.status}}
+                        <a href='{{gisc_properties.oai_url}}' title='{{gisc_properties.oai_url}}' class='icon-puzzle RGYlight_main RGYlight_R'></a>
+                        {{/metrics.services.oai_pmh.status}}
                         <div class='status_caption'>OAI Provider</div>
                       </div>
                       <div class='span1'>
-                        <a id='service_status_{{centreID}}_distribution_main' href='http://www.google.com/' title='Distribution' class='icon-loop RGYlight_main'></a>
+                        {{#metrics.services.distribution_system.status}}
+                        <a href='#' title='Distribution' class='icon-loop RGYlight_main RGYlight_G'></a>
+                        {{/metrics.services.distribution_system.status}}
+                        {{^metrics.services.distribution_system.status}}
+                        <a href='#' title='Distribution' class='icon-loop RGYlight_main RGYlight_R'></a>
+                        {{/metrics.services.distribution_system.status}}
                         <div class='status_caption'>Distribution</div>
                       </div>
                     </div>
@@ -306,7 +323,4 @@ function showChartCacheFiles_{{centreID}}() {
   var contentChartCacheFiles = "<div id='chart_{{centreID}}_datacache_files' style='padding-top:0px; padding-left:0px; width:800px; height:600px; z-index:999;' class='' dataset='{{_chart.datacache_files}}'></div>";
   showChartLine('{{centreID}}', '24H cache files of ' + capitalize('{{centreID}}'), 'datacache_files', contentChartCacheFiles);
 }
-
-load_services_status('{{centreID}}');
-setInterval(function() { load_services_status('{{centreID}}'); }, 60000);
 </script>

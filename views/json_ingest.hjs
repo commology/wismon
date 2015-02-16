@@ -1,0 +1,19 @@
+<script lang='javascript'>
+  $(document).ready(function() {
+    load_head();
+    $('#json_input').text('{ JSON }');
+  });
+</script>
+<div class='title'>Monitoring JSON upload</div>
+<table width='100%'>
+  <tr>
+    <td style='vertical-align:top;'>
+      <textarea id='json_input'></textarea>
+    </td>
+    <td style='vertical-align:top;'>
+      <input type='submit' onclick="javascript:submitJSON('ingest/vhhh', $('#json_input').text())" />
+    </td>
+    <td style='vertical-align:top;'>
+    </td>
+  </tr>
+</table>
