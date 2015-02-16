@@ -37,7 +37,7 @@ exports.allowUploadJSON = function (req, res, next) {
     return;
   }
   if (result == false) {
-    res.status(403).send();
+    res.sendStatus(403);
     return;
   }
   next();

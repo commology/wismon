@@ -11,9 +11,13 @@ var flash = require('express-flash');
 var routes = require('./routes/index');
 var wismon = require('./routes/wismon_root');
 
-var appRoot = '/monitor/test';
+var cfg = require('./modules/wismon_config.js');
+
+var appRoot = cfg.getProp('WISMON_WEB_HOME_PATH');
 
 var app = express();
+
+app.enable('trust proxy');
 app.enable('strict routing', true);
 
 // view engine setup
@@ -21,10 +25,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hjs');
 
 // create a log write stream in append mode
-var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'});
+var accessLogStream = fs.createWriteStream(__dirname + '/log/access.log', {flags: 'a'});
 
 // uncomment after placing your favicon in /public
-//app.use(appRoot, favicon(__dirname + '/public/favicon.ico'));
+app.use(appRoot, favicon(__dirname + '/public/favicon.ico'));
 app.use(appRoot, logger('dev'));
 app.use(appRoot, bodyParser.json());
 app.use(appRoot, bodyParser.urlencoded({ extended: false }));
@@ -65,7 +69,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
-app.enable('trust proxy');
 
 module.exports = app;

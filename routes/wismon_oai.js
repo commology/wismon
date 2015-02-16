@@ -17,25 +17,25 @@ var utl = require('../modules/wismon_utl.js');
 var svc = require('../modules/wismon_svc.js');
 var oaih = require('../modules/wismon_oai_harvester.js');
 
-var config = require('../etc/wismon_conf.json');
+var config = require('../modules/wismon_config.js');
 
 
 router.get('/', function(req, res) {
   res.send('');
 });
 
-router.get('/digest', function(req, res) {
-  if (utl.authorize(req, res, 'OAI Statistics', 'VIEW_OAI_STATISTICS')) {
+router.get('/stat', function(req, res) {
+  if (utl.isAllowed(req, res, 'OAI Statistics', 'VIEW_OAI_STATISTICS')) {
     var today = new Date();
     var yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
     res.redirect('digest/' + utl.stringifyDate(yesterday));
   }
   else {
-    res.status(403).send('');
+    res.sendStatus(403);
   }
 });
 
-router.get('/digest/:date', function(req, res) {
+router.get('/stat/:date', function(req, res) {
   var date = req.params.date;
   if (!date || utl.trim(date).length < 6) {
     var today = new Date();

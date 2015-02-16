@@ -28,9 +28,14 @@
       "cma_nmc",
       "cma_nsmc"
     ],
-    "REALTIME_JSON": {
-      "URL": "http://wisportal.cma.gov.cn/monitor/test/json/monitor.json",
+    "SERVICES_JSON": {
+      "URL": "http://wisportal.cma.gov.cn/monitor/test/json/services.json",
       "CRONTAB": "*/5 * * * *",
+      "ENABLED": true
+    },
+    "MONITOR_JSON": {
+      "URL": "http://wisportal.cma.gov.cn/monitor/test/json/monitor.json",
+      "CRONTAB": "5 * * * *",
       "ENABLED": true
     },
     "AORCENTRES_JSON": {
@@ -71,9 +76,14 @@
     },
     "AORCENTRES": [
     ],
-    "REALTIME_JSON": {
+    "SERVICES_JSON": {
       "URL": "",
       "CRONTAB": "*/5 * * * *",
+      "ENABLED": false
+    },
+    "MONITOR_JSON": {
+      "URL": "",
+      "CRONTAB": "* * * * *",
       "ENABLED": false
     },
     "AORCENTRES_JSON": {
@@ -114,9 +124,14 @@
     },
     "AORCENTRES": [
     ],
-    "REALTIME_JSON": {
+    "SERVICES_JSON": {
       "URL": "",
       "CRONTAB": "*/5 * * * *",
+      "ENABLED": false
+    },
+    "MONITOR_JSON": {
+      "URL": "",
+      "CRONTAB": "5 * * * *",
       "ENABLED": false
     },
     "AORCENTRES_JSON": {
@@ -157,9 +172,14 @@
     },
     "AORCENTRES": [
     ],
-    "REALTIME_JSON": {
+    "SERVICES_JSON": {
       "URL": "",
       "CRONTAB": "*/5 * * * *",
+      "ENABLED": false
+    },
+    "MONITOR_JSON": {
+      "URL": "",
+      "CRONTAB": "5 * * * *",
       "ENABLED": false
     },
     "AORCENTRES_JSON": {
@@ -200,9 +220,14 @@
     },
     "AORCENTRES": [
     ],
-    "REALTIME_JSON": {
+    "SERVICES_JSON": {
       "URL": "http://gisc-test.dwd.de/monitor/data/monitor.json",
       "CRONTAB": "*/5 * * * *",
+      "ENABLED": true
+    },
+    "MONITOR_JSON": {
+      "URL": "http://gisc-test.dwd.de/monitor/data/monitor.json",
+      "CRONTAB": "5 * * * *",
       "ENABLED": true
     },
     "AORCENTRES_JSON": {
@@ -243,9 +268,14 @@
     },
     "AORCENTRES": [
     ],
-    "REALTIME_JSON": {
+    "SERVICES_JSON": {
       "URL": "",
       "CRONTAB": "*/5 * * * *",
+      "ENABLED": false
+    },
+    "MONITOR_JSON": {
+      "URL": "",
+      "CRONTAB": "5 * * * *",
       "ENABLED": false
     },
     "AORCENTRES_JSON": {
@@ -286,9 +316,14 @@
     },
     "AORCENTRES": [
     ],
-    "REALTIME_JSON": {
+    "SERVICES_JSON": {
       "URL": "",
       "CRONTAB": "*/5 * * * *",
+      "ENABLED": false
+    },
+    "MONITOR_JSON": {
+      "URL": "",
+      "CRONTAB": "* * * * *",
       "ENABLED": false
     },
     "AORCENTRES_JSON": {
@@ -329,9 +364,14 @@
     },
     "AORCENTRES": [
     ],
-    "REALTIME_JSON": {
+    "SERVICES_JSON": {
       "URL": "http://www.wis-jma.go.jp/json/monitor.json",
       "CRONTAB": "*/5 * * * *",
+      "ENABLED": true
+    },
+    "MONITOR_JSON": {
+      "URL": "http://www.wis-jma.go.jp/json/monitor.json",
+      "CRONTAB": "* * * * *",
       "ENABLED": true
     },
     "AORCENTRES_JSON": {
@@ -372,9 +412,14 @@
     },
     "AORCENTRES": [
     ],
-    "REALTIME_JSON": {
+    "SERVICES_JSON": {
       "URL": "",
       "CRONTAB": "*/5 * * * *",
+      "ENABLED": false
+    },
+    "MONITOR_JSON": {
+      "URL": "",
+      "CRONTAB": "5 * * * *",
       "ENABLED": false
     },
     "AORCENTRES_JSON": {

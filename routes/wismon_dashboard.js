@@ -4,11 +4,11 @@ var router = express.Router();
 var async = require('async');
 var humanize = require('humanize');
 
-var utl = require('../modules/wismon_utl.js');
 var svc = require('../modules/wismon_svc.js');
+var cfg = require('../modules/wismon_config.js');
+var log = require('../modules/wismon_logger.js');
 var monJSON = require('../modules/wismon_monjson.js');
 
-var config = require('../etc/wismon_conf.json');
 
 var renderGISC_Monitor = function (monjson, req, res) {
   var timestamp = new Date(monjson.timestamp);
@@ -70,19 +70,8 @@ router.get('/dashboard/tiles', function(req, res) {
   res.redirect('../tiles');
 });
 
-router.get('/head', function(req, res) {
-  if (req.xhr) {
-    res.charset = 'utf-8';
-    res.render('head_metro');
-  }
-  else {
-    res.sendStatus(404);
-  }
-});
- 
 router.get('/tiles', function(req, res) {
-  var date = new Date();
-  console.log(date.toISOString() + ' Dashboard request from ' + req.ip + ' ' + req.ips);
+  log.info('Dashboard request from ' + req.ip + ' ' + req.ips);
   
   var json = {};
   json.partials = 
@@ -95,8 +84,7 @@ router.get('/tiles', function(req, res) {
 });
  
 router.get('/dev', function(req, res) {
-  var date = new Date();
-  console.log(date.toISOString() + ' Dashboard (dev) request from ' + req.ip + ' ' + req.ips);
+  log.info('Dashboard (dev) request from ' + req.ip + ' ' + req.ips);
   
   var json = {};
   json.partials = 
@@ -108,26 +96,31 @@ router.get('/dev', function(req, res) {
   res.render('dashboard', json);
 });
 
-router.get('/gisc/:name', function(req, res) {
-  var date = new Date();
-  console.log(date.toISOString() + ' GISC ' + req.params.name + ' request from ' + req.ip + ' ' + req.ips);
+router.get('/centre/:name', function(req, res) {
+  log.info('GISC ' + req.params.name + ' request from ' + req.ip + ' ' + req.ips);
+  
+  if (!req.xhr) {
+    res.sendStatus(404);
+    return;
+  }
   
   var centreID = null;
   var monURL = null;
-  if (config.WIS_MONITOR_OBJECTS[req.params.name]) {
+  if (cfg.hasCentre(req.params.name)) {
     centreID = req.params.name; 
-    monURL = utl.getConfigURL(req.params.name, 'REALTIME_JSON');
+    monURL = cfg.getCentreURL(req.params.name, 'MONITOR_JSON');
   }
   
+  var date = new Date();
   monJSON.getJSON(centreID, monURL, 'Monitor', function (err, result) {
-    var realtime_json_url = utl.getConfigURL(req.params.name, 'REALTIME_JSON', true);
+    var monitor_json_url = cfg.getCentreURL(req.params.name, 'MONITOR_JSON', true);
     if (err) {
       res.charset = 'utf-8';
       if (err == 'invalid') {
-        res.send('JSON schema validation failed: ' + req.params.name + ' [' + realtime_json_url + ']');
+        res.send('JSON schema validation failed: ' + req.params.name + ' [' + monitor_json_url + ']');
       }
       else {
-        res.send('JSON is not accessible: ' + req.params.name + ' [' + realtime_json_url + ']');
+        res.send('JSON is not accessible: ' + req.params.name + ' [' + monitor_json_url + ']');
       }
       return;
     }
@@ -139,14 +132,14 @@ router.get('/gisc/:name', function(req, res) {
           result.monitor_json_url = '../../json/monitor.json';
       }
       else {
-        result.monitor_json_url = realtime_json_url;
+        result.monitor_json_url = monitor_json_url;
       }
       
       if (req.query.dev)
         result._dev = {};
       
       if (!centreID)
-        centreID = config.WIS_CENTRE_ID;
+        centreID = cfg.getProp('WIS_CENTRE_ID');
       result.centreID = centreID;
       result._chart = {};
       async.parallel([
@@ -185,6 +178,30 @@ router.get('/gisc/:name', function(req, res) {
     }
   });
   
+});
+
+router.get('/services/:name', function(req, res) {
+  log.info('Services ' + req.params.name + ' request from ' + req.ip + ' ' + req.ips);
+  
+  if (!req.xhr) {
+    res.sendStatus(404);
+    return;
+  }
+  
+  var centreID = null;
+  var monURL = null;
+  if (cfg.hasCentre(req.params.name)) {
+    centreID = req.params.name; 
+    monURL = cfg.getCentreURL(req.params.name, 'SERVICES_JSON');
+  }
+  
+  res.charset = 'utf-8';
+  monJSON.getJSON(centreID, monURL, 'Services', function (err, monjson) {
+    res.charset = 'utf-8';
+    res.type('application/json');
+    //res.json(monjson);
+    res.send(JSON.stringify(monjson, null, '  '));
+  });
 });
 
 router.get('/sandbox', function(req, res) {

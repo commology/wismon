@@ -5,12 +5,11 @@ var url = require('url');
 
 var utl = require('./wismon_utl.js');
 var svc = require('./wismon_svc.js');
-
-var config = require('../etc/wismon_conf.json');
+var log = require('./wismon_logger.js');
 
 exports.harvestMetadataHead = function (centreID, jsonURL) {
-  console.log('OAI Harvester from ' + centreID + ' started.');
-  console.log('@' + url.format(jsonURL));
+  log.info('OAI Harvester from ' + centreID + ' started.');
+  log.info('@' + url.format(jsonURL));
   async.waterfall([
     function(callback) {
       svc.accessOAIProvider(
@@ -86,9 +85,7 @@ exports.harvestMetadataHead = function (centreID, jsonURL) {
       );
     },
     function(resMetadataSets, callback) {
-      var pathOAI = path.resolve(__dirname, '../oai/');
       var pathOAIHead = path.resolve(__dirname, '../oai/header');
-      if (!fs.existsSync(pathOAI)) fs.mkdirSync(pathOAI, 0755);
       if (!fs.existsSync(pathOAIHead)) fs.mkdirSync(pathOAIHead, 0755);
       
       var timestamp = new Date();
@@ -186,8 +183,8 @@ exports.harvestMetadataHead = function (centreID, jsonURL) {
                 if (!errRest) {
                 }
                 else {
-                  console.log('OAI harvest failed: ');
-                  console.log(JSON.stringify(errRest, null, '  '));
+                  log.error('OAI harvesting failed: ');
+                  log.error(JSON.stringify(errRest, null, '  '));
                 }
               }
             );
@@ -202,8 +199,8 @@ exports.harvestMetadataHead = function (centreID, jsonURL) {
   ],
   function (err, async_result) {
     if (err) {
-      console.log('OAI Harvester error: ' + err);
-      console.log(JSON.stringify(async_result, null, '  '));
+      log.error('OAI Harvester error: ' + err);
+      log.info(async_result);
     }
   });
 }

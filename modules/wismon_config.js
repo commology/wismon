@@ -15,6 +15,14 @@ var getProp = function (type, subtype) {
 }
 exports.getProp = getProp;
 
+var getCentreIDs = function () {
+  var centreIDs = [];
+  for (var key in cfg_centres)
+    centreIDs.push(key);
+  return centreIDs;
+}
+exports.getCentreIDs = getCentreIDs;
+
 var hasCentre = function (centreID, type, subtype) {
   if (!centreID) {
     centreID = cfg_local.HOME_CENTRE_ID;

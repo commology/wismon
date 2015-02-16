@@ -8,8 +8,8 @@ var xml2js = require('xml2js');
 var libxmljs = require('libxmljs');
 
 var utl = require('./wismon_utl.js');
-
-var config = require('../etc/wismon_conf.json');
+var log = require('./wismon_logger.js');
+var cfg = require('./wismon_config.js');
 
 var accessHTTPService = function (serviceHost, servicePort, servicePath, callback) {
   
@@ -178,7 +178,7 @@ var accessOAIProvider = function (providerHost, providerPort, providerPath, verb
             break;
           
           default:
-            console.log(xml);
+            log.info(xml);
             break;
         }
       }
@@ -219,17 +219,17 @@ exports.accessSocketService = accessSocketService;
 var writeServiceStatusResult = function (event, err, result) {
   if (!err) {
     fs.writeFile(path.resolve(__dirname, '../tmp/wismon_' + event + '.dat'),
-        config.WIS_MONITOR_SERVICE_ONLINE, function (ferr) {
+        cfg.getProp('WIS_MONITOR_SERVICE_ONLINE'), function (ferr) {
       if (ferr) throw ferr;
     });
     //console.log(result);
   }
   else {
     fs.writeFile(path.resolve(__dirname, '../tmp/wismon_' + event + '.dat'),
-        config.WIS_MONITOR_SERVICE_OFFLINE, function (ferr) {
+        cfg.getProp('WIS_MONITOR_SERVICE_OFFLINE'), function (ferr) {
       if (ferr) throw ferr;
     });
-    console.log(err);
+    log.err('write service status result');
   }
 }
 
@@ -242,7 +242,7 @@ var writeOAIProviderStatusResult = function (err, result) {
 }
 
 var writeMetadataCountResult = function (err, result) {
-  var count = result[config.HOME_METADATA_SETSPEC];
+  var count = result[cfg.getProp('HOME_METADATA_SETSPEC')];
   if (!err) {
     fs.writeFile(path.resolve(__dirname, '../tmp/wismon_' + 'metadata_count' + '.dat'), count, function (ferr) {
       if (ferr) throw ferr;
@@ -253,7 +253,7 @@ var writeMetadataCountResult = function (err, result) {
     fs.writeFile(path.resolve(__dirname, '../tmp/wismon_' + 'metadata_count' + '.dat'), null, function (ferr) {
       if (ferr) throw ferr;
     });
-    console.log(err);
+    log.error('write metadata count result');
   }
 }
 
@@ -265,7 +265,7 @@ var onAccessService = function (event) {
   //console.log(event);
   switch (event) {
     case 'WISPortal':
-      var URL = utl.getConfigURL(null, 'PORTAL');
+      var URL = cfg.getCentreURL(null, 'PORTAL');
       accessHTTPService(
           URL.hostname,
           URL.port,
@@ -273,7 +273,7 @@ var onAccessService = function (event) {
           writeWISPortalStatusResult);
       break;
     case 'OAIProvider':
-      var URL = utl.getConfigURL(null, 'OAI_PROVIDER');
+      var URL = cfg.getCentreURL(null, 'OAI_PROVIDER');
       accessOAIProvider(
           URL.hostname,
           URL.port,
@@ -283,7 +283,7 @@ var onAccessService = function (event) {
           writeOAIProviderStatusResult);
       break;
     case 'MetadataCount':
-      var URL = utl.getConfigURL(null, 'OAI_PROVIDER');
+      var URL = cfg.getCentreURL(null, 'OAI_PROVIDER');
       accessOAIProvider(
           URL.hostname,
           URL.port,
@@ -293,7 +293,7 @@ var onAccessService = function (event) {
           writeMetadataCountResult);
       break;
     case 'IntraFTP':
-      var URL = utl.getConfigURL(null, 'CACHE24H');
+      var URL = cfg.getCentreURL(null, 'CACHE24H');
       accessSocketService(
           URL.hostname,
           URL.port,
