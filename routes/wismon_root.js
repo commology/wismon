@@ -41,8 +41,36 @@ var installCRONTAB = function () {
       var URL = null;
       if (centreID)
         URL = cfg.getCentreURL(centreID, 'MONITOR_JSON');
-      monJSON.getJSON(centreID, URL, 'Monitor', function (err, monjson) {
+      monJSON.fetchJSON(centreID, URL, 'Monitor', function (err, monjson) {
         log.info('Monitor JSON automatically fetch from ' + centreID);
+        //console.log(JSON.stringify(monjson, null, '  '));
+      });
+    }, [key]);
+  }
+  for (var i = 0; i < centreIDs.length; i++) {
+    var key = centreIDs[i];
+    if (!cfg.getCentreCRONTAB(key, 'SERVICES_JSON'))
+      continue;
+    cronjob.scheduleJob(cfg.getCentreCRONTAB(key, 'SERVICES_JSON'), function (centreID) {
+      var URL = null;
+      if (centreID)
+        URL = cfg.getCentreURL(centreID, 'SERVICES_JSON');
+      monJSON.fetchJSON(centreID, URL, 'Services', function (err, monjson) {
+        log.info('Services JSON automatically fetch from ' + centreID);
+        //console.log(JSON.stringify(monjson, null, '  '));
+      });
+    }, [key]);
+  }
+  for (var i = 0; i < centreIDs.length; i++) {
+    var key = centreIDs[i];
+    if (!cfg.getCentreCRONTAB(key, 'AORCENTRES_JSON'))
+      continue;
+    cronjob.scheduleJob(cfg.getCentreCRONTAB(key, 'AORCENTRES_JSON'), function (centreID) {
+      var URL = null;
+      if (centreID)
+        URL = cfg.getCentreURL(centreID, 'AORCENTRES_JSON');
+      monJSON.fetchJSON(centreID, URL, 'AORCentres', function (err, monjson) {
+        log.info('AORCentres JSON automatically fetch from ' + centreID);
         //console.log(JSON.stringify(monjson, null, '  '));
       });
     }, [key]);

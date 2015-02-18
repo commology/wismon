@@ -1,10 +1,26 @@
+var fs = require('fs');
 var url = require('url');
 var crypto = require('crypto');
 
 var utl = require('../modules/wismon_utl.js');
+var log = require('../modules/wismon_logger.js');
 var cfg_local = require('../etc/wismon_conf_local.json');
 var cfg_centres = require('../etc/wismon_conf_centres.json');
 var cfg_roles = require('../etc/wismon_conf_roles.json');
+
+var initCentres = function () {
+  for (var key in cfg_centres) {
+    if (!cfg_centres[key]['ENABLED'])
+      continue;
+    if (cfg_centres[key].hasOwnProperty('_include')) {
+      var centreJSON = require('../etc/' + cfg_centres[key]['_include']);
+      cfg_centres[key] = centreJSON;
+    }
+  }
+  log.info('Initialized Centres CONFIG');
+  log.info(cfg_centres);
+}
+initCentres();
 
 var getProp = function (type, subtype) {
   if (!cfg_local[type]) {

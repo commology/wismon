@@ -10,7 +10,6 @@ var url = require('url');
 var querystring = require('querystring');
 var crypto = require('crypto');
 var humanize = require('humanize');
-var cronjob = require('node-crontab');
 var crontab = require('crontab');
 
 var utl = require('../modules/wismon_utl.js');

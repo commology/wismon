@@ -1,0 +1,51 @@
+{
+  "NAME": "Beijing",
+  "TYPE": "GISC",
+  "PASSWORD": "8a5f1ae366ccad990eea1345996f52c0ee77f083",
+  "PORTAL": {
+    "URL": "http://wisportal.cma.gov.cn/wis/",
+    "CRONTAB": "* * * * *",
+    "ENABLED": true
+  },
+  "OAI_PROVIDER": {
+    "URL": "http://wisportal.cma.gov.cn/wis/provider",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": true
+  },
+  "CACHE24H": {
+    "URL": "ftp://10.0.96.56:21/",
+    "CRONTAB": "* * * * *",
+    "ENABLED": true
+  },
+  "DASHBOARD": {
+    "URL": "http://wisportal.cma.gov.cn/monitor/test/dashboard",
+    "CRONTAB": "*/5 * * * *",
+    "ENABLED": true
+  },
+  "SERVICES_JSON": {
+    "URL": "http://wisportal.cma.gov.cn/monitor/test/json/services.json",
+    "CRONTAB": "* * * * *",
+    "ENABLED": true
+  },
+  "MONITOR_JSON": {
+    "URL": "http://wisportal.cma.gov.cn/monitor/test/json/monitor.json",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": true
+  },
+  "AORCENTRES_JSON": {
+    "CENTRES": [
+      "beijing",
+      "offenbach",
+      "tokyo"
+    ],
+    "URL": "http://wisportal.cma.gov.cn/monitor/test/json/centres.json",
+    "CRONTAB": "25 * * * *",
+    "ENABLED": true
+  },
+  "DOWNTIME_JSON": {
+    "URL": "http://wisportal.cma.gov.cn/monitor/test/json/events.json",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": true
+  },
+  "ENABLED": true
+}

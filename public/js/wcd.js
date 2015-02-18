@@ -140,6 +140,20 @@ function load_mdstat() {
   });
 }
 
+function setAutoZIndex(id) {
+  $(id).mouseover(function () {
+    $(this).attr('prev_z_index', $(this).css('z-index'));
+    $(this).css('z-index', 9999);
+  });
+  $(id).mouseout(function () {
+    if ($(this).attr('prev_z_index') == undefined)
+      $(this).css('z-index', 99);
+    else
+      $(this).css('z-index', $(this).attr('prev_z_index'));
+    $(this).removeAttr('prev_z_index');
+  });
+}
+
 function showChart(rootID, chartID) {
   var root = $(rootID);
   var chart = $(chartID);

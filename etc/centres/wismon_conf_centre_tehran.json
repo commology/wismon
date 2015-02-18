@@ -1,0 +1,46 @@
+{
+  "NAME": "Tehran",
+  "TYPE": "GISC",
+  "PASSWORD": "",
+  "PORTAL": {
+    "URL": "",
+    "CRONTAB": "5 0 * * *",
+    "ENABLED": false
+  },
+  "OAI_PROVIDER": {
+    "URL": "http://gisc.irimo.ir:8080/oai/provider",
+    "CRONTAB": "45 * * * *",
+    "ENABLED": false
+  },
+  "CACHE24H": {
+    "URL": "",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "DASHBOARD": {
+    "URL": "",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "SERVICES_JSON": {
+    "URL": "",
+    "CRONTAB": "*/5 * * * *",
+    "ENABLED": false
+  },
+  "MONITOR_JSON": {
+    "URL": "",
+    "CRONTAB": "* * * * *",
+    "ENABLED": false
+  },
+  "AORCENTRES_JSON": {
+    "URL": "",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "DOWNTIME_JSON": {
+    "URL": "",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "ENABLED": true
+}

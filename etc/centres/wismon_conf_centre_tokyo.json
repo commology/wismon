@@ -1,0 +1,46 @@
+{
+  "NAME": "Tokyo",
+  "TYPE": "GISC",
+  "PASSWORD": "9825fdea9b287fa6a89144bc01b98f40cd1a30bd",
+  "PORTAL": {
+    "URL": "",
+    "CRONTAB": "5 0 * * *",
+    "ENABLED": false
+  },
+  "OAI_PROVIDER": {
+    "URL": "http://www.wis-jma.go.jp/meta/oaiprovider.jsp",
+    "CRONTAB": "30 * * * *",
+    "ENABLED": true
+  },
+  "CACHE24H": {
+    "URL": "",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "DASHBOARD": {
+    "URL": "",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "SERVICES_JSON": {
+    "URL": "http://www.wis-jma.go.jp/json/monitor.json",
+    "CRONTAB": "* * * * *",
+    "ENABLED": true
+  },
+  "MONITOR_JSON": {
+    "URL": "http://www.wis-jma.go.jp/json/monitor.json",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": true
+  },
+  "AORCENTRES_JSON": {
+    "URL": "http://www.wis-jma.go.jp/json/centres.json",
+    "CRONTAB": "25 * * * *",
+    "ENABLED": true
+  },
+  "DOWNTIME_JSON": {
+    "URL": "http://www.wis-jma.go.jp/json/events.json",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "ENABLED": true
+}

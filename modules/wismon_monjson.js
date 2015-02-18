@@ -41,6 +41,7 @@ var generateJSON_Monitor = function (callback) {
   }
   
   var date = new Date();
+  date.setHours(0);
   date.setMinutes(0);
   date.setSeconds(0);
   date.setMilliseconds(0);
@@ -175,10 +176,36 @@ var generateJSON_AORCentres = function (callback) {
   }
   
   var date = new Date();
+  date.setHours(0);
   date.setMinutes(0);
   date.setSeconds(0);
   date.setMilliseconds(0);
   aorjson.timestamp = date.toISOString();
+  
+  var centre = aorjson.centres[0];
+  var centreStr = JSON.stringify(centre);
+  aorjson.centres = [];
+  var pathname = path.resolve(__dirname, '../json/');
+  cfg.getCentreProp(null, 'AORCENTRES_JSON', 'CENTRES').forEach(function (p) {
+    var pathn = pathname + '/' + p;
+    if (fs.existsSync(pathn) && fs.statSync(pathn).isDirectory()) {
+      centre = JSON.parse(centreStr);
+      centre.centre = cfg.getCentreName(p);
+      centre.count = -1;
+      centre.volumesize = -1;
+      
+      var fn_monitor = path.resolve(pathn, "monitor.json");
+      if (fs.existsSync(fn_monitor)) {
+        var monjsonStr = fs.readFileSync(fn_monitor);
+        var monjson = JSON.parse(monjsonStr);
+        //centre.count = monjson.metrics.metadata_catalogue.number_of_records_at00UTC;
+        centre.count = monjson.metrics.cache_24h.number_of_products_all;
+        centre.volumesize = monjson.metrics.cache_24h.bytes_of_cache_all;
+      }
+      
+      aorjson.centres.push(centre);
+    }
+  });
   
   if (!validator.validate(aorjson, schema_aorcentres).valid) {
     log.error("AOR Centres JSON instance: schema validation failed!");
@@ -190,7 +217,7 @@ var generateJSON_AORCentres = function (callback) {
   callback(null, aorjson);
 }
 
-var fetchJSON = function (jsonURL, schema, callback) {
+var fetchRemoteJSON = function (jsonURL, schema, callback) {
   svc.accessHTTPService(
       jsonURL.hostname,
       jsonURL.port,
@@ -219,10 +246,31 @@ var archiveJSON = function (centreID, type, strURL, json) {
   if (!centreID)
     centreID = cfg.getProp('HOME_CENTRE_ID');
   
+  json.url = strURL;
+  
   var pathJSON = path.resolve(__dirname, '../json/' + centreID);
   if (!fs.existsSync(pathJSON)) fs.mkdirSync(pathJSON, 0755);
-  var filenameJSON = path.resolve(__dirname, '../json/' + centreID + '/' + type.toLowerCase() + '_' + centreID + '_' + utl.stringifyDate(date) + '.json');
-  fs.writeFileSync(filenameJSON, JSON.stringify(json, null, '  '));
+  
+  var filenameJSONa = type.toLowerCase() + '_' + centreID + '_' + utl.stringifyDate(date) + '.json';
+  var filenameJSON = type.toLowerCase() + '.json';
+  
+  fs.writeFile(path.resolve(pathJSON, filenameJSONa), JSON.stringify(json, null, '  '), function (err) {
+    var filenameLink = filenameJSONa + '-' + Math.floor(Math.random() * 10000);
+    fs.link(path.resolve(pathJSON, filenameJSONa), path.resolve(pathJSON, filenameLink), function (err) {
+      if (err) {
+        fs.unlink(path.resolve(pathJSON, filenameLink), function (err) {
+        });
+        return;
+      }
+      fs.rename(path.resolve(pathJSON, filenameLink), path.resolve(pathJSON, filenameJSON), function (err) {
+        if (err) {
+          fs.unlink(path.resolve(pathJSON, filenameLink), function (err) {
+          });
+          return;
+        }
+      });
+    });
+  });
   
   delete json.archive_timestamp;
   delete json.url;
@@ -313,8 +361,8 @@ var digestJSON = function (centreID, type, json) {
   }
 }
 
-exports.getJSON = function (centreID, jsonURL, type, callback) {
-  if (centreID == cfg.getProp('HOME_CENTRE_ID')) {
+var fetchJSON = function (centreID, jsonURL, type, callback) {
+  if (centreID == null || centreID == cfg.getProp('HOME_CENTRE_ID')) {
     jsonURL = null;
   }
   
@@ -378,7 +426,7 @@ exports.getJSON = function (centreID, jsonURL, type, callback) {
   }
   else {
     if (type == "AORCentres")
-      fetchJSON(jsonURL, schema_aorcentres, function (err, result) {
+      fetchRemoteJSON(jsonURL, schema_aorcentres, function (err, result) {
         if (err) {
           if (err == 'invalid')
             archiveJSON(centreID, type + '-invalid', url.format(jsonURL), { invalid: result });
@@ -393,7 +441,7 @@ exports.getJSON = function (centreID, jsonURL, type, callback) {
         callback(err, result);
       });
     else if (type == "Events")
-      fetchJSON(jsonURL, schema_events, function (err, result) {
+      fetchRemoteJSON(jsonURL, schema_events, function (err, result) {
         if (err) {
           if (err == 'invalid')
             archiveJSON(centreID, type + '-invalid', url.format(jsonURL), { invalid: result });
@@ -412,7 +460,7 @@ exports.getJSON = function (centreID, jsonURL, type, callback) {
         callback(err, result);
       });
     else if (type == 'Services')
-      fetchJSON(jsonURL, schema_monitor, function (err, result) {
+      fetchRemoteJSON(jsonURL, schema_monitor, function (err, result) {
         if (err) {
           if (err == 'invalid')
             archiveJSON(centreID, type + '-invalid', url.format(jsonURL), { invalid: result });
@@ -427,7 +475,7 @@ exports.getJSON = function (centreID, jsonURL, type, callback) {
         callback(err, result);
       });
     else
-      fetchJSON(jsonURL, schema_monitor, function (err, result) {
+      fetchRemoteJSON(jsonURL, schema_monitor, function (err, result) {
         if (err) {
           if (err == 'invalid')
             archiveJSON(centreID, type + '-invalid', url.format(jsonURL), { invalid: result });
@@ -442,6 +490,65 @@ exports.getJSON = function (centreID, jsonURL, type, callback) {
         callback(err, result);
       });
   }
+}
+exports.fetchJSON = fetchJSON;
+
+exports.getJSON = function (centreID, jsonURL, type, callback) {
+  if (!centreID)
+    centreID = cfg.getProp('HOME_CENTRE_ID');
+  
+  var pathJSON = path.resolve(__dirname, '../json/' + centreID);
+  if (!fs.existsSync(pathJSON)) fs.mkdirSync(pathJSON, 0755);
+  
+  if (centreID == cfg.getProp('HOME_CENTRE_ID'))
+    centreID = null;
+  
+  var filenameJSON = type.toLowerCase() + '.json';
+  
+  fs.readFile(path.resolve(pathJSON, filenameJSON), function (err, data) {
+    if (err) {
+      // the error is assumed to be 'not existed'
+      fetchJSON(centreID, jsonURL, type, callback);
+    }
+    else {
+      var json = JSON.parse(data);  // the data is assumed to be valid
+      delete json['archive_timestamp'];
+      delete json['url'];
+      if (type == 'AORCentres') {
+        if (!validator.validate(json, schema_aorcentres).valid) {
+          callback('invalid', result);
+        }
+        else {
+          callback(null, json);
+        }
+      }
+      if (type == 'Events') {
+        schema = schema_events;
+        if (!validator.validate(json, schema_events).valid) {
+          callback('invalid', result);
+        }
+        else {
+          callback(null, json);
+        }
+      }
+      if (type == 'Services') {
+        //if (!validator.validate(json, schema_services).valid) {
+        //  callback('invalid', result);
+        //}
+        //else {
+          callback(null, json);
+        //}
+      }
+      if (type == 'Monitor') {
+        if (!validator.validate(json, schema_monitor).valid) {
+          callback('invalid', result);
+        }
+        else {
+          callback(null, json);
+        }
+      }
+    }
+  });
 }
 
 exports.queryMetrics = function (redis_key, callback, begin_timestamp, end_timestamp) {

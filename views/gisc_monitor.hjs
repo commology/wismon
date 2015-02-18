@@ -1,4 +1,4 @@
-<div class='contaner' style=''>
+<div id='window_{{centreID}}' class='contaner' style='position: relative; z-index: 999;'>
   <div class='grid' style='margin-bottom:0px;'>
     <div class='row' style='margin-top:0px;'>
       <div class='span5'>
@@ -297,6 +297,8 @@
   </div>
 </div>
 <script lang='javascript'>
+setAutoZIndex('#window_{{centreID}}');
+
 function showChartMetadataRecords_{{centreID}}() {
   var contentChartMetadataRecords = "<div id='chart_{{centreID}}_metadata_records' style='padding-top:0px; padding-left:0px; width:800px; height:600px; z-index:999;' class='' dataset='{{_chart.metadata_records}}'></div>";
   showChartLine('{{centreID}}', 'Metadata records of ' + capitalize('{{centreID}}'), 'metadata_records', contentChartMetadataRecords);

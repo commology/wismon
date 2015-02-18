@@ -111,9 +111,19 @@ router.put('/:username/:filename', acl.allowUploadJSON, function (req, res) {
 router.use('/:username/', acl.allowUploadJSON, function (req, res, next) {
   var http_username = acl.getHTTPUsername(req);
   var username = req.params.username;
+  var options = {
+    icons: true,
+    view: 'details',
+    filter: function (filename, index, files, dir) {
+      if (filename.match(/.json$/))
+        return true;
+      else
+        return false;
+    }
+  }
   if (http_username != username) {
     if (http_username == 'master') {
-      serveIndex(path.resolve('json', username))(req, res, next);
+      serveIndex(path.resolve('json', username), options)(req, res, next);
       return;
     }
     res.sendStatus(403);
@@ -121,7 +131,7 @@ router.use('/:username/', acl.allowUploadJSON, function (req, res, next) {
   }
   
   log.info('OPEN JSON directory' + ' from ' + username + '@' + req.ip + ' ' + req.ips);
-  serveIndex(path.resolve('json', username))(req, res, next);
+  serveIndex(path.resolve('json', username), options)(req, res, next);
 });
 
 router.get('/:username/:filename', acl.allowUploadJSON, function (req, res) {
