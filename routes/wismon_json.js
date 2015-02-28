@@ -33,29 +33,6 @@ var responseServicesJSON = function (req, res) {
 }
 router.get('/services.json', responseServicesJSON);
 
-var responseEventsJSON = function (req, res) {
-  monJSON.getJSON(null, null, 'Events', function (err, eventsjson) {
-    log.info('GET Events JSON request from ' + req.ip + ' ' + req.ips);
-    res.charset = 'utf-8';
-    res.type('application/json');
-    var timelinejson = [];
-    if (req.query.timeline) {
-      eventsjson.events.forEach (function (event) {
-        timelinejson.push({
-          start: event.start,
-          end: event.end,
-          content: event.title + '<br>' + event.text
-        });
-      });
-      res.json(timelinejson);
-    }
-    else {
-      res.send(JSON.stringify(eventsjson, null, '  '));
-    }
-  });
-}
-router.get('/events.json', responseEventsJSON);
-
 var responseAORCentresJSON = function (req, res) {
   monJSON.getJSON(null, null, 'AORCentres', function (err, aorjson) {
     log.info('GET AORCentres JSON from ' + req.ip + ' ' + req.ips);
@@ -67,6 +44,25 @@ var responseAORCentresJSON = function (req, res) {
 }
 router.get('/centres.json', responseAORCentresJSON);
 
+var responseEventsJSON = function (req, res) {
+  monJSON.getJSON(null, null, 'Events', function (err, eventsjson) {
+    log.info('GET Events JSON request from ' + req.ip + ' ' + req.ips);
+    res.charset = 'utf-8';
+    res.type('application/json');
+    res.send(JSON.stringify(eventsjson, null, '  '));
+  });
+}
+router.get('/events.json', responseEventsJSON);
+
+var responseTimelineJSON = function (req, res) {
+  monJSON.getJSON(null, null, 'Timeline', function (err, timelinejson) {
+    log.info('GET Timeline JSON request from ' + req.ip + ' ' + req.ips);
+    res.charset = 'utf-8';
+    res.type('application/json');
+    res.send(JSON.stringify(timelinejson, null, '  '));
+  });
+}
+router.get('/timeline.json', responseTimelineJSON);
 
 router.get('/ingest', acl.allowUploadJSON, function(req, res) {
   var http_username = acl.getHTTPUsername(req);

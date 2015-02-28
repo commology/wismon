@@ -137,35 +137,6 @@ var generateJSON_Services = function (callback) {
   callback(null, monjson);
 }
 
-var generateJSON_Events = function (callback) {
-  var str = JSON.stringify(templ_events);
-  var eventsjson = JSON.parse(str);
-  
-  if (!validator.validate(eventsjson, schema_events).valid) {
-    log.error("Events JSON template: schema validation failed!");
-    callback("invalid", null);
-  }
-  
-  var date = new Date();
-  date.setMinutes(0);
-  date.setSeconds(0);
-  date.setMilliseconds(0);
-  eventsjson.timestamp = date.toISOString();
-  
-  for (var i = 0; i < eventsjson.events.length; i++) {
-    eventsjson.events[i].start = utl.formatISODate(eventsjson.events[i].start).toISOString();
-    eventsjson.events[i].end = utl.formatISODate(eventsjson.events[i].end).toISOString();
-  }
-  if (!validator.validate(eventsjson, schema_events).valid) {
-    log.error("Events JSON instance: schema validation failed!");
-    callback("invalid", null);
-  }
-  
-  // console.log(JSON.stringify(eventsjson, null, '  '));
-  delete eventsjson['_locals'];
-  callback(null, eventsjson);
-}
-
 var generateJSON_AORCentres = function (callback) {
   var str = JSON.stringify(templ_aorcentres);
   var aorjson = JSON.parse(str);
@@ -215,6 +186,86 @@ var generateJSON_AORCentres = function (callback) {
   // console.log(JSON.stringify(aorjson, null, '  '));
   delete aorjson['_locals'];
   callback(null, aorjson);
+}
+
+var generateJSON_Events = function (callback) {
+  var str = JSON.stringify(templ_events);
+  var eventsjson = JSON.parse(str);
+  
+  if (!validator.validate(eventsjson, schema_events).valid) {
+    log.error("Events JSON template: schema validation failed!");
+    callback("invalid", null);
+  }
+  
+  var date = new Date();
+  date.setMinutes(0);
+  date.setSeconds(0);
+  date.setMilliseconds(0);
+  eventsjson.timestamp = date.toISOString();
+  
+  for (var i = 0; i < eventsjson.events.length; i++) {
+    eventsjson.events[i].start = utl.formatISODate(eventsjson.events[i].start).toISOString();
+    eventsjson.events[i].end = utl.formatISODate(eventsjson.events[i].end).toISOString();
+  }
+  
+  if (!validator.validate(eventsjson, schema_events).valid) {
+    log.error("Events JSON instance: schema validation failed!");
+    callback("invalid", null);
+  }
+  
+  // console.log(JSON.stringify(eventsjson, null, '  '));
+  delete eventsjson['_locals'];
+  callback(null, eventsjson);
+}
+
+var generateJSON_Timeline = function (callback) {
+  var str = JSON.stringify(templ_events);
+  var eventsjson = JSON.parse(str);
+  
+  if (!validator.validate(eventsjson, schema_events).valid) {
+    log.error("Events JSON template: schema validation failed!");
+    callback("invalid", null);
+  }
+  
+  var date = new Date();
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+  date.setMilliseconds(0);
+  eventsjson.timestamp = date.toISOString();
+  
+  var event = eventsjson.events[0];
+  var eventStr = JSON.stringify(event);
+  eventsjson.events = [];
+  var pathname = path.resolve(__dirname, '../json/');
+  var subpath = fs.readdirSync(pathname);
+  subpath.forEach(function (p) {
+    var pathn = pathname + '/' + p;
+    if (fs.existsSync(pathn) && fs.statSync(pathn).isDirectory()) {
+      var fn_events = path.resolve(pathn, "events.json");
+      
+      if (fs.existsSync(fn_events)) {
+        var ejsonStr = fs.readFileSync(fn_events);
+        var ejson = JSON.parse(ejsonStr);
+        ejson.events.forEach(function (e) {
+          event = e;
+          event.centreID = p;
+          event.centre = cfg.getCentreType(p) + ' ' + cfg.getCentreName(p);
+          eventsjson.events.push(event);
+        });
+      }
+      
+    }
+  });
+  
+  if (!validator.validate(eventsjson, schema_events).valid) {
+    log.error("Events JSON instance: schema validation failed!");
+    callback("invalid", null);
+  }
+  
+  // console.log(JSON.stringify(aorjson, null, '  '));
+  delete eventsjson['_locals'];
+  callback(null, eventsjson);
 }
 
 var fetchRemoteJSON = function (jsonURL, schema, callback) {
@@ -292,11 +343,32 @@ exports.archiveJSON = function (centreID, type, strURL, json) {
 }
 
 var digestJSON = function (centreID, type, json) {
+  json.timestamp = utl.formatISODate(json.timestamp);
   var date = new Date(json.timestamp);
   
   if (!centreID)
     centreID = cfg.getProp('HOME_CENTRE_ID');
   
+  if (type == 'Monitor') {
+    redis_cli.hset(
+      [
+        'METRIC:' + type + ':' + centreID + ':' + 'web_portal',		// key
+        date.getTime(),							// field
+        json.metrics.services.catalogue.status
+      ], redis.print);
+    redis_cli.hset(
+      [
+        'METRIC:' + type + ':' + centreID + ':' + 'oai_provider',	// key
+        date.getTime(),							// field
+        json.metrics.services.oai_pmh.status
+      ], redis.print);
+    redis_cli.hset(
+      [
+        'METRIC:' + type + ':' + centreID + ':' + 'distribution',	// key
+        date.getTime(),							// field
+        json.metrics.services.distribution_system.status
+      ], redis.print);
+  }
   if (type == 'Monitor') {
     redis_cli.hset(
       [
@@ -367,8 +439,8 @@ var fetchJSON = function (centreID, jsonURL, type, callback) {
   }
   
   if (typeof(jsonURL) === "undefined" || jsonURL == null || utl.trim(jsonURL).length == 0) {
-    if (type == "AORCentres")
-      generateJSON_AORCentres(function (err, result) {
+    if (type == "Timeline")
+      generateJSON_Timeline(function (err, result) {
         if (err) {
           if (err == 'invalid')
             archiveJSON(centreID, type + '-invalid', url.format(jsonURL), { invalid: result });
@@ -383,6 +455,20 @@ var fetchJSON = function (centreID, jsonURL, type, callback) {
       });
     else if (type == "Events")
       generateJSON_Events(function (err, result) {
+        if (err) {
+          if (err == 'invalid')
+            archiveJSON(centreID, type + '-invalid', url.format(jsonURL), { invalid: result });
+          else
+            archiveJSON(centreID, type + '-error', url.format(jsonURL), { error: err });
+        }
+        else {
+          archiveJSON(centreID, type, url.format(jsonURL), result);
+          digestJSON(centreID, type, result);
+        }
+        callback(err, result);
+      });
+    else if (type == "AORCentres")
+      generateJSON_AORCentres(function (err, result) {
         if (err) {
           if (err == 'invalid')
             archiveJSON(centreID, type + '-invalid', url.format(jsonURL), { invalid: result });
@@ -425,22 +511,7 @@ var fetchJSON = function (centreID, jsonURL, type, callback) {
       });
   }
   else {
-    if (type == "AORCentres")
-      fetchRemoteJSON(jsonURL, schema_aorcentres, function (err, result) {
-        if (err) {
-          if (err == 'invalid')
-            archiveJSON(centreID, type + '-invalid', url.format(jsonURL), { invalid: result });
-          else
-            archiveJSON(centreID, type + '-error', url.format(jsonURL), { error: err });
-        }
-        else {
-          result.timestamp = utl.formatISODate(result.timestamp).toISOString();
-          archiveJSON(centreID, type, url.format(jsonURL), result);
-          digestJSON(centreID, type, result);
-        }
-        callback(err, result);
-      });
-    else if (type == "Events")
+    if (type == "Events")
       fetchRemoteJSON(jsonURL, schema_events, function (err, result) {
         if (err) {
           if (err == 'invalid')
@@ -451,9 +522,24 @@ var fetchJSON = function (centreID, jsonURL, type, callback) {
         else {
           result.timestamp = utl.formatISODate(result.timestamp).toISOString();
           for (var i = 0; i < result.events.length; i++) {
-            result.events[i].start = utl.formatISODate(eventsjson.events[i].start).toISOString();
-            result.events[i].end = utl.formatISODate(eventsjson.events[i].end).toISOString();
+            result.events[i].start = utl.formatISODate(result.events[i].start).toISOString();
+            result.events[i].end = utl.formatISODate(result.events[i].end).toISOString();
           }
+          archiveJSON(centreID, type, url.format(jsonURL), result);
+          digestJSON(centreID, type, result);
+        }
+        callback(err, result);
+      });
+    else if (type == "AORCentres")
+      fetchRemoteJSON(jsonURL, schema_aorcentres, function (err, result) {
+        if (err) {
+          if (err == 'invalid')
+            archiveJSON(centreID, type + '-invalid', url.format(jsonURL), { invalid: result });
+          else
+            archiveJSON(centreID, type + '-error', url.format(jsonURL), { error: err });
+        }
+        else {
+          result.timestamp = utl.formatISODate(result.timestamp).toISOString();
           archiveJSON(centreID, type, url.format(jsonURL), result);
           digestJSON(centreID, type, result);
         }
@@ -514,8 +600,9 @@ exports.getJSON = function (centreID, jsonURL, type, callback) {
       var json = JSON.parse(data);  // the data is assumed to be valid
       delete json['archive_timestamp'];
       delete json['url'];
-      if (type == 'AORCentres') {
-        if (!validator.validate(json, schema_aorcentres).valid) {
+      if (type == 'Timeline') {
+        schema = schema_events;
+        if (!validator.validate(json, schema_events).valid) {
           callback('invalid', result);
         }
         else {
@@ -525,6 +612,14 @@ exports.getJSON = function (centreID, jsonURL, type, callback) {
       if (type == 'Events') {
         schema = schema_events;
         if (!validator.validate(json, schema_events).valid) {
+          callback('invalid', result);
+        }
+        else {
+          callback(null, json);
+        }
+      }
+      if (type == 'AORCentres') {
+        if (!validator.validate(json, schema_aorcentres).valid) {
           callback('invalid', result);
         }
         else {
@@ -580,6 +675,13 @@ exports.queryMetrics = function (redis_key, callback, begin_timestamp, end_times
         hkeys.push(timestamp);
         if (hitems.hasOwnProperty(element)) {
           data = parseInt(hitems[element]);
+          if (isNaN(data)) {
+            data = hitems[element];
+            if (data == 'true')
+              data = true;
+            if (data == 'false')
+              data = false;
+          }
           hvals.push(data);
           dataset.push(
           {

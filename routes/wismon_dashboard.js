@@ -78,6 +78,7 @@ router.get('/tiles', function(req, res) {
               {
                 head: 'head_basic',
                 body: 'tiles',
+                footer: 'footer_timeline'
               };
   res.charset = 'utf-8';
   res.render('dashboard', json);
@@ -143,6 +144,39 @@ router.get('/centre/:name', function(req, res) {
       result.centreID = centreID;
       result._chart = {};
       async.parallel([
+        function(callback) {
+          monJSON.queryMetrics('METRIC:Monitor:' + centreID + ':web_portal', function (dataset) {
+            /*
+            result._chart.portal = {
+              'keys': JSON.stringify(keys),
+              'vals': JSON.stringify(vals)
+            };*/
+            result._chart.portal = JSON.stringify(dataset);
+            callback(null, dataset);
+          }, date.getTime() - 30 * 24 * 60 * 60 * 1000);
+        },
+        function(callback) {
+          monJSON.queryMetrics('METRIC:Monitor:' + centreID + ':oai_provider', function (dataset) {
+            /*
+            result._chart.oaiprovider = {
+              'keys': JSON.stringify(keys),
+              'vals': JSON.stringify(vals)
+            };*/
+            result._chart.oaiprovider = JSON.stringify(dataset);
+            callback(null, dataset);
+          }, date.getTime() - 30 * 24 * 60 * 60 * 1000);
+        },
+        function(callback) {
+          monJSON.queryMetrics('METRIC:Monitor:' + centreID + ':distribution', function (dataset) {
+            /*
+            result._chart.distribution = {
+              'keys': JSON.stringify(keys),
+              'vals': JSON.stringify(vals)
+            };*/
+            result._chart.distribution = JSON.stringify(dataset);
+            callback(null, dataset);
+          }, date.getTime() - 30 * 24 * 60 * 60 * 1000);
+        },
         function(callback) {
           monJSON.queryMetrics('METRIC:Monitor:' + centreID + ':metadata:records', function (dataset) {
             /*

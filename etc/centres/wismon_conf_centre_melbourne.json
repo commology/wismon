@@ -23,24 +23,24 @@
     "ENABLED": false
   },
   "SERVICES_JSON": {
-    "URL": "",
+    "URL": "http://wis.bom.gov.au/monitor/monitor.json",
     "CRONTAB": "*/5 * * * *",
-    "ENABLED": false
+    "ENABLED": true
   },
   "MONITOR_JSON": {
-    "URL": "",
+    "URL": "http://wis.bom.gov.au/monitor/monitor.json",
     "CRONTAB": "5 * * * *",
-    "ENABLED": false
+    "ENABLED": true
   },
   "AORCENTRES_JSON": {
-    "URL": "",
+    "URL": "http://wis.bom.gov.au/monitor/centres.json",
     "CRONTAB": "5 * * * *",
-    "ENABLED": false
+    "ENABLED": true
   },
   "DOWNTIME_JSON": {
-    "URL": "",
-    "CRONTAB": "5 * * * *",
-    "ENABLED": false
+    "URL": "http://wis.bom.gov.au/monitor/events.json",
+    "CRONTAB": "15 * * * *",
+    "ENABLED": true
   },
   "ENABLED": true
 }

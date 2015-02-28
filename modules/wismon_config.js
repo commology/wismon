@@ -18,7 +18,7 @@ var initCentres = function () {
     }
   }
   log.info('Initialized Centres CONFIG');
-  log.info(cfg_centres);
+  log.debug(cfg_centres);
 }
 initCentres();
 

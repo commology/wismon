@@ -191,27 +191,27 @@ var accessSocketService = function (serviceHost, servicePort, servicePath, callb
   
   var client = new net.Socket();
   client.connect(servicePort, serviceHost, function () {
-    //console.log('CONNECTED TO: ' + serviceHost);
+    console.log('CONNECTED TO: ' + serviceHost);
   });
   
   client.on('data', function (data) {
-    //console.log('DATA: ' + data);
+    console.log('DATA: ' + data);
     callback(null, data);
     client.destroy();
   });
   
   client.on('timeout', function (err) {
     callback('timeout', null);
-    //console.log('TIMEOUT');
+    console.log('TIMEOUT');
   });
   
   client.on('error', function (err) {
     callback(err, null);
-    //console.log('ERROR');
+    console.log('ERROR');
   });
   
   client.on('close', function () {
-    //console.log('CLOSED.');
+    console.log('CLOSED.');
   });
 }
 exports.accessSocketService = accessSocketService;

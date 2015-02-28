@@ -2,34 +2,14 @@
   $(document).ready(function() {
     load_head();
     load_centres();
+    load_timeline();
     //load_mdstat();
   });
 </script>
 <div class='title'>WMO Common Dashboard (v.19)</div>
-<div class='subtitle'>GISC Beijing, updated at 2015-2-18</div>
-<table width='100%'>
-  <tr>
-    <td style='vertical-align:top;'>
-      <div id='beijing' class='tiles_centre'></div>
-    </td>
-    <td style='vertical-align:top;'>
-      <div id='offenbach' class='tiles_centre'></div>
-    </td>
-    <td style='vertical-align:top;'>
-      <div id='tokyo' class='tiles_centre'></div>
-    </td>
-  </tr>
-</table>
+<div class='subtitle'>GISC Beijing, updated at 2015-2-27</div>
+<div id='beijing' class='tiles_centre' style='position: absolute; left: 0px;'></div>
+<div id='melbourne' class='tiles_centre' style='position: absolute; left: 400px;'></div>
+<div id='offenbach' class='tiles_centre' style='position: absolute; left: 800px;'></div>
+<div id='tokyo' class='tiles_centre' style='position: absolute; left: 1200px;'></div>
 <div id='MDStat_'></div>
-<footer>
-        <div class='window flat shadow margin10' style='min-height:0px;'>
-          <div class='caption' style=''>
-            <div class='icon icon-newspaper'></div>
-            <div class='title'>
-              <div class='item-title' style='font: 18px arial;'></div>
-            </div>
-          </div>
-          <div class='content' style='padding-bottom:10px; background-color:#C9E1FF;'>
-          </div>
-        </div>
-</footer>

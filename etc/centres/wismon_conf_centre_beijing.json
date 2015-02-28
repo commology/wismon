@@ -44,7 +44,7 @@
   },
   "DOWNTIME_JSON": {
     "URL": "http://wisportal.cma.gov.cn/monitor/test/json/events.json",
-    "CRONTAB": "5 * * * *",
+    "CRONTAB": "15 * * * *",
     "ENABLED": true
   },
   "ENABLED": true

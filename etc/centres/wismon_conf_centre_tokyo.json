@@ -39,8 +39,8 @@
   },
   "DOWNTIME_JSON": {
     "URL": "http://www.wis-jma.go.jp/json/events.json",
-    "CRONTAB": "5 * * * *",
-    "ENABLED": false
+    "CRONTAB": "15 * * * *",
+    "ENABLED": true
   },
   "ENABLED": true
 }

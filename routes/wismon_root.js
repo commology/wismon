@@ -75,6 +75,20 @@ var installCRONTAB = function () {
       });
     }, [key]);
   }
+  for (var i = 0; i < centreIDs.length; i++) {
+    var key = centreIDs[i];
+    if (!cfg.getCentreCRONTAB(key, 'DOWNTIME_JSON'))
+      continue;
+    cronjob.scheduleJob(cfg.getCentreCRONTAB(key, 'DOWNTIME_JSON'), function (centreID) {
+      var URL = null;
+      if (centreID)
+        URL = cfg.getCentreURL(centreID, 'DOWNTIME_JSON');
+      monJSON.fetchJSON(centreID, URL, 'Events', function (err, monjson) {
+        log.info('Events JSON automatically fetch from ' + centreID);
+        //console.log(JSON.stringify(monjson, null, '  '));
+      });
+    }, [key]);
+  }
 }
 installCRONTAB();
 

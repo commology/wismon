@@ -6,5 +6,6 @@
 </head>
 <body class='metro'>
   {{>body}}
+  {{>footer}}
 </body>
 </html>

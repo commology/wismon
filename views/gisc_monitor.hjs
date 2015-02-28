@@ -296,6 +296,9 @@
     </div>
   </div>
 </div>
+<input type='hidden' id='test_{{centreID}}' dataset='{{_chart.portal}}' />
+<input type='hidden' id='test_{{centreID}}' dataset='{{_chart.oaiprovider}}' />
+<input type='hidden' id='test_{{centreID}}' dataset='{{_chart.distribution}}' />
 <script lang='javascript'>
 setAutoZIndex('#window_{{centreID}}');
 

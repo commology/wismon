@@ -39,8 +39,8 @@
   },
   "DOWNTIME_JSON": {
     "URL": "http://gisc-test.dwd.de/monitor/data/events.json",
-    "CRONTAB": "5 * * * *",
-    "ENABLED": false
+    "CRONTAB": "15 * * * *",
+    "ENABLED": true
   },
   "ENABLED": true
 }

@@ -108,26 +108,43 @@ function load_head() {
 function load_timeline() {
   // load timeline
   $.ajax({
-    url: '../json/events.json?timeline=true',
+    url: '../json/timeline.json',
     cache: false
   })
   .done(function(json) {
-    json.forEach(function(elem) {
+    json.events.forEach(function(elem) {
       var startDate = new Date(elem.start);
       var endDate = new Date(elem.end);
+      elem.content = '<div title=\'' + elem.text + '\'>' + elem.title + '</div>';
       elem.start = startDate;
       elem.end = endDate;
+      elem.group = elem.centre;
     });
     
     var timeline_chart = new links.Timeline(document.getElementById('timeline'));
     timeline_chart.setOptions({
-      width: '600px',
-      height: '200px',
+      width: '100%',
+      min: new Date(2014, 1, 1),
+      max: new Date(2020, 1, 1),
+      groupsWidth: '150px',
+      groupMinHeight: 20,
       showCurrentTime: true,
+      showNavigation: true,
       axisOnTop: true
     });
-    timeline_chart.draw(json);
+    timeline_chart.draw(json.events);
   });
+}
+
+function unload_timeline() {
+  $('#timeline').html('');
+}
+
+function toggle_timeline() {
+  if ($('#timeline').html() != '')
+    unload_timeline();
+  else
+    load_timeline();
 }
 
 function load_mdstat() {
@@ -253,3 +270,4 @@ function submitJSON(url, json) {
     dataType: 'json'
   });
 }
+
