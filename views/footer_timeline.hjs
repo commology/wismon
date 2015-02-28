@@ -1,0 +1,13 @@
+<footer>
+  <div class='window flat shadow margin10' style='min-height:0px;'>
+    <div class='caption' style='' onclick='javascript: toggle_timeline();'>
+      <div class='icon icon-newspaper'></div>
+      <div class='title' title='click to fold/unfold'>
+        <div class='item-title' style='font: 18px arial;'>Maintenance Events</div>
+      </div>
+    </div>
+    <div class='content' style='padding-bottom:10px; background-color:#C9E1FF;'>
+      <div id='timeline' style='font: 10px sans-serif'></div>
+    </div>
+  </div>
+</footer>
