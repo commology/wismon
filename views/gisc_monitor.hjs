@@ -1,22 +1,23 @@
-<div id='window_{{centreID}}' class='contaner' style='position: relative; z-index: 999;'>
+<div id='window_{{centreID}}' class='contaner' style='position:relative; z-index:999;'>
   <div class='grid' style='margin-bottom:0px;'>
     <div class='row' style='margin-top:0px;'>
       <div class='span5'>
         <div class='window flat shadow margin10' style='min-height:0px;'>
-          <div class='caption' style=''>
+          <div class='caption' style='cursor:move;'>
             <div class='icon icon-globe'></div>
             <div class='title'>
-              <div class='item-title' style='font: 18px arial;'>{{centre}}</div>
+              <div class='item-title' style='font:18px arial;'>{{centre}}</div>
             </div>
 
-            <div id='service_status_{{centreID}}_portal_mini' title='Web Portal' class='icon-home RGYlight_mini' style="position:absolute; right:60px; top:0;"></div>
-            <div id='service_status_{{centreID}}_oaiprovider_mini' title='OAI Provider' class='icon-puzzle RGYlight_mini' style="position:absolute; right:30px; top:0;"></div>
-            <div id='service_status_{{centreID}}_distribution_mini' title='Distribution' class='icon-loop RGYlight_mini' style="position:absolute; right:0px; top:0;"></div>
+            <div id='service_status_{{centreID}}_portal_mini' title='Web Portal' class='icon-home RGYlight_mini' style="position:absolute; right:90px; top:0;"></div>
+            <div id='service_status_{{centreID}}_oaiprovider_mini' title='OAI Provider' class='icon-puzzle RGYlight_mini' style="position:absolute; right:60px; top:0;"></div>
+            <div id='service_status_{{centreID}}_distribution_mini' title='Distribution' class='icon-loop RGYlight_mini' style="position:absolute; right:30px; top:0;"></div>
 
+            <div class='btn-close' onclick="hideTile('{{centreID}}')"></div>
           </div>
           <div class='content' style='padding-bottom:10px; background-color:#C9E1FF;'>
             <div class='grid' style='margin-bottom:0px;'>
-              <div class='accordion with-marker' data-role='accordion' data-closeany='false'>
+              <div class='accordion with-marker' data-role='accordion' data-closeany='true'>
                 <div class='accordion-frame'>
                   <a href='#' class='heading' style='color:balck; background-color:#98C7FF; opacity:0.9;'>
                     <i class='icon-power-2'></i>Services
@@ -32,7 +33,7 @@
                         <div class='status_caption'>OAI Provider</div>
                       </div>
                       <div class='span1'>
-                        <a id='service_status_{{centreID}}_distribution_main' href='http://www.google.com/' title='Distribution' class='icon-loop RGYlight_main'></a>
+                        <a id='service_status_{{centreID}}_distribution_main' href='#' title='Distribution' class='icon-loop RGYlight_main'></a>
                         <div class='status_caption'>Distribution</div>
                       </div>
                     </div>
@@ -59,7 +60,7 @@
                             <div class='data'>
                               <table class='format_grid'><tr>
                                 <td style='text-align:right;'>
-                                  <a class='icon-stats' title='show historical chart' onclick='javascript:showChartMetadataRecords_{{centreID}}();'></a>
+                                  <a class='icon-stats' title='show time-series chart' onclick='javascript:showChartMetadataRecords_{{centreID}}();'></a>
                                 </td>
                               </tr></table>
                             </div>
@@ -137,7 +138,7 @@
                             <div class='data'>
                               <table class='format_grid'><tr>
                                 <td style='text-align:right;'>
-                                  <a class='icon-stats' title='show historical chart' onclick='javascript:showChartCacheFiles_{{centreID}}();'></a>
+                                  <a class='icon-stats' title='show time-series chart' onclick='javascript:showChartCacheFiles_{{centreID}}();'></a>
                                 </td>
                               </tr></table>
                             </div>
@@ -296,9 +297,11 @@
     </div>
   </div>
 </div>
-<input type='hidden' id='test_{{centreID}}' dataset='{{_chart.portal}}' />
-<input type='hidden' id='test_{{centreID}}' dataset='{{_chart.oaiprovider}}' />
-<input type='hidden' id='test_{{centreID}}' dataset='{{_chart.distribution}}' />
+
+<input type='hidden' id='service_timeseries_{{centreID}}_portal' dataset='{{_chart.portal}}' />
+<input type='hidden' id='service_timeseries_{{centreID}}_oaiprovider' dataset='{{_chart.oaiprovider}}' />
+<input type='hidden' id='service_timeseries_{{centreID}}_distribution' dataset='{{_chart.distribution}}' />
+
 <script lang='javascript'>
 setAutoZIndex('#window_{{centreID}}');
 
@@ -312,6 +315,6 @@ function showChartCacheFiles_{{centreID}}() {
   showChartLine('{{centreID}}', '24H cache files of ' + capitalize('{{centreID}}'), 'datacache_files', contentChartCacheFiles);
 }
 
-load_services_status('{{centreID}}');
-setInterval(function() { load_services_status('{{centreID}}'); }, 60000);
+loadServicesStatus('{{centreID}}');
+setInterval(function() { loadServicesStatus('{{centreID}}'); }, 60000);
 </script>

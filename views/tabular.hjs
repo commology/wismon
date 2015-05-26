@@ -1,0 +1,53 @@
+<script lang='javascript'>
+  $(document).ready(function() {
+    load_head();
+var dt = $('#datatable_overall').DataTable();
+  });
+</script>
+<div class='tab-control' data-role='tab-control' style='position: absolute; top: 100px'>
+  <ul class='tabs'>
+    <li class='active'>
+      <a href='#_tab_overall'>
+        <i class='icon-compass-2'></i> Overall
+      </a>
+    </li>
+    <li>
+      <a href='#_tab_services'>
+        <i class='icon-power-2'></i> Services
+      </a>
+    </li>
+    <li>
+      <a href='#_tab_metadata'>
+        <i class='icon-cabinet'></i> DAR Metadata
+      </a>
+    </li>
+    <li>
+      <a href='#_tab_cache24h'>
+        <i class='icon-cube'></i> Data Cache
+      </a>
+    </li>
+  </ul>
+  <div class='frames'>
+    <div class='frame' id='_tab_overall'>
+      <table id='datatable_overall'>
+        <thead>
+          <th>Key</th>
+          <th>Val</th>
+        </thead>
+      </table>
+    </div>
+    <div class='frame' id='_tab_services'>
+    </div>
+    <div class='frame' id='_tab_metadata'>
+    </div>
+    <div class='frame' id='_tab_cache24h'>
+    </div>
+  </div>
+</div>
+<div id='beijing' class='tabular_centre' style='display: none;'></div>
+<div id='melbourne' class='tabular_centre' style='display: none;'></div>
+<div id='offenbach' class='tabular_centre' style='display: none;'></div>
+<div id='tokyo' class='tabular_centre' style='display: none;'></div>
+<script lang='javascript'>
+//    load_datatable(dt);
+</script>

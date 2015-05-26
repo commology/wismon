@@ -1,0 +1,332 @@
+<div id='window_{{centreID}}' class='contaner' style='position: relative; z-index: 999;'>
+  <div class='grid' style='margin-bottom:0px;'>
+    <div class='row' style='margin-top:0px;'>
+      <div class='span5'>
+        <div class='window flat shadow margin10' style='min-height:0px;'>
+          <div class='caption' style='cursor: move;'>
+            <div class='icon icon-globe'></div>
+            <div class='title'>
+              <div class='item-title' style='font: 18px arial;'>{{centre}}</div>
+            </div>
+
+            <div id='service_status_{{centreID}}_portal_mini' title='Web Portal' class='icon-home RGYlight_mini' style="position:absolute; right:60px; top:0;"></div>
+            <div id='service_status_{{centreID}}_oaiprovider_mini' title='OAI Provider' class='icon-puzzle RGYlight_mini' style="position:absolute; right:30px; top:0;"></div>
+            <div id='service_status_{{centreID}}_distribution_mini' title='Distribution' class='icon-loop RGYlight_mini' style="position:absolute; right:0px; top:0;"></div>
+
+          </div>
+          <div class='content' style='padding-bottom:10px; background-color:#C9E1FF;'>
+            <div class='grid' style='margin-bottom:0px;'>
+              <div class='accordion' data-role='accordion' data-closeany='false'>
+                <div class='frame'>
+                  <a href='#' class='heading' style='color:balck; background-color:#98C7FF; opacity:0.9;'>
+                    <i class='icon-power-2'></i>Services
+                  </a>
+                  <div class='content' style='padding-top:10px; background-color:#E9F6FF'>
+                    <div id='services' class='row' style='margin-top:0px; padding:10px; display:;'>
+                      <div class='span1'>
+                        <a id='service_status_{{centreID}}_portal_main' href='{{gisc_properties.catalogue_url}}' title='{{gisc_properties.catalogue_url}}' class='icon-home RGYlight_main'></a>
+                        <div class='status_caption'>Web Portal</div>
+                      </div>
+                      <div class='span1'>
+                        <a id='service_status_{{centreID}}_oaiprovider_main' href='{{gisc_properties.oai_url}}' title='{{gisc_properties.oai_url}}' class='icon-puzzle RGYlight_main'></a>
+                        <div class='status_caption'>OAI Provider</div>
+                      </div>
+                      <div class='span1'>
+                        <a id='service_status_{{centreID}}_distribution_main' href='#' title='Distribution' class='icon-loop RGYlight_main'></a>
+                        <div class='status_caption'>Distribution</div>
+                      </div>
+                    </div>
+                    <div id='rmdcn' class='row' style='margin-top:0px; padding:10px; display:;'>
+                      <img src='{{metrics.rmdcn}}'></img>
+                    </div>
+                 </div>
+                </div>
+                <div class='frame'>
+                  <a href='#' class='heading' style='color:balck; background-color:#98C7FF; opacity:0.9;'>
+                    <table class='format_grid'><tr>
+                      <td>
+                        <i class='icon-cabinet'></i>DAR Metadata
+                      </td>
+                      <td style='text-align:right;'>
+                        {{metrics.metadata_catalogue.number_of_records_at00UTC}}
+                      </td>
+                    </tr></table>
+                  </a>
+                  <div id='content_metadata' class='content' style='padding-top:10px; background-color:#E9F6FF'>
+                    <div id='metadata' class='row' style='margin-top:0px;'>
+                      <div class='listview'>
+                          <div class='list-content'>
+                            <div class='data'>
+                              <table class='format_grid'><tr>
+                                <td style='text-align:right;'>
+                                  <a class='icon-stats' title='show time-series chart' onclick='javascript:showChartMetadataRecords_{{centreID}}();'></a>
+                                </td>
+                              </tr></table>
+                            </div>
+                          </div>
+                          <div class='list-content' title='Metadata records at last 00 UTC'>
+                            <div class='data'>
+                              <table class='format_grid'><tr>
+                                <td>
+                                  <span class='prop_label'>
+                                    Metadata records at 00 UTC
+                                  </span>
+                                </td>
+                                <td style='text-align:right;'>
+                                  <span class='prop_value'>
+                                    {{metrics.metadata_catalogue.number_of_records_at00UTC}}
+                                  </span>
+                                </td>
+                              </tr></table>
+                            </div>
+                          </div>
+                          <div class='list-content' title='Metadata records changed (inserted or modified)'>
+                            <div class='data'>
+                              <table class='format_grid'><tr>
+                                <td>
+                                  <span class='prop_label'>
+                                    Metadata records changed
+                                  </span>
+                                </td>
+                                <td style='text-align:right;'>
+                                  <span class='prop_value'>
+                                    {{metrics.metadata_catalogue.number_of_changes_insert_modify}}
+                                  </span>
+                                </td>
+                              </tr></table>
+                            </div>
+                          </div>
+                          <div class='list-content' title='Metadata records deleted'>
+                            <div class='data'>
+                              <table class='format_grid'><tr>
+                                <td>
+                                  <span class='prop_label'>
+                                    Metadata records deleted
+                                  </span>
+                                </td>
+                                <td style='text-align:right;'>
+                                  <span class='prop_value'>
+                                    {{metrics.metadata_catalogue.number_of_changes_delete}}
+                                  </span>
+                                </td>
+                              </tr></table>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='frame'>
+                  <a href='#' class='heading' style='color:balck; background-color:#98C7FF; opacity:0.9;'>
+                    <table class='format_grid'><tr>
+                      <td>
+                        <i class='icon-cube'></i>Data Cache
+                      </td>
+                      <td style='text-align:right;'>
+                          {{metrics.cache_24h.bytes_of_cache_all}}
+                      </td>
+                      <td style='text-align:right;'>
+                          {{metrics.cache_24h.number_of_products_all}}
+                      </td>
+                    </tr></table>
+                  </a>
+                  <div class='content' style='padding-top:10px; background-color:#E9F6FF'>
+                    <div id='datacache' class='row' style='margin-top:0px;'>
+                      <div class='listview'>
+                          <div class='list-content'>
+                            <div class='data'>
+                              <table class='format_grid'><tr>
+                                <td style='text-align:right;'>
+                                  <a class='icon-stats' title='show time-series chart' onclick='javascript:showChartCacheFiles_{{centreID}}();'></a>
+                                </td>
+                              </tr></table>
+                            </div>
+                          </div>
+                          <div class='list-content' title='Total products (files) in 24 hour cache'>
+                            <div class='data'>
+                              <table class='format_grid'><tr>
+                                <td>
+                                  <span class='prop_label'>
+                                    Total products in 24H cache
+                                  </span>
+                                </td>
+                                <td style='text-align:right;'>
+                                  <span class='prop_value'>
+                                    {{metrics.cache_24h.number_of_products_all}}
+                                  </span>
+                                </td>
+                              </tr></table>
+                            </div>
+                          </div>
+                          <div class='list-content' title='Total bytes in 24 hour cache'>
+                            <div class='data'>
+                              <table class='format_grid'><tr>
+                                <td>
+                                  <span class='prop_label'>
+                                    Total bytes in 24H cache
+                                  </span>
+                                </td>
+                                <td style='text-align:right;'>
+                                  <span class='prop_value'>
+                                    {{metrics.cache_24h.bytes_of_cache_all}}
+                                  </span>
+                                </td>
+                              </tr></table>
+                            </div>
+                          </div>
+                          <div class='list-content' title='Products (files) without metadata'>
+                            <div class='data'>
+                              <table class='format_grid'><tr>
+                                <td>
+                                  <span class='prop_label'>
+                                    Products without metadata
+                                  </span>
+                                </td>
+                                <td style='text-align:right;'>
+                                  <span class='prop_value'>
+                                    {{metrics.cache_24h.number_of_products_without_metadata}}
+                                  </span>
+                                </td>
+                              </tr></table>
+                            </div>
+                          </div>
+                          <div class='list-content' title='Total bytes without metadata'>
+                            <div class='data'>
+                              <table class='format_grid'><tr>
+                                <td>
+                                  <span class='prop_label'>
+                                    Total bytes without metadata
+                                  </span>
+                                </td>
+                                <td style='text-align:right;'>
+                                  <span class='prop_value'>
+                                    {{metrics.cache_24h.bytes_of_cache_without_metadata}}
+                                  </span>
+                                </td>
+                              </tr></table>
+                            </div>
+                          </div>
+                          <div class='list-content' title='Unique products(files) without metadata'>
+                            <div class='data'>
+                              <table class='format_grid'><tr>
+                                <td>
+                                  <span class='prop_label'>
+                                    Unique products without metadata
+                                  </span>
+                                </td>
+                                <td style='text-align:right;'>
+                                  <span class='prop_value'>
+                                    {{metrics.cache_24h.number_of_unique_products_without_metadata_all}}
+                                  </span>
+                                </td>
+                              </tr></table>
+                            </div>
+                          </div>
+                          <div class='list-content' title='Unique products(files) without metadata from AMDCN'>
+                            <div class='data'>
+                              <table class='format_grid'><tr>
+                                <td>
+                                  <span class='prop_label'>
+                                    Unique products without metadata (AMDCN)
+                                  </span>
+                                </td>
+                                <td style='text-align:right;'>
+                                  <span class='prop_value'>
+                                    {{metrics.cache_24h.number_of_unique_products_without_metadata_AMDCN}}
+                                  </span>
+                                </td>
+                              </tr></table>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='frame'>
+                  <a href='#' class='heading' style='color:balck; background-color:#98C7FF; opacity:0.9;'>
+                    <i class='icon-share-2'></i>Backup GISCs
+                  </a>
+                  <div class='content' style='padding-top:10px; background-color:#E9F6FF'>
+                    <div id='contact' class='row' style='margin-top:0px; display:;'>
+                      <div class='span1'></div>
+                      <div class='span4'>
+                        <div class=''>
+                          <ul>
+                          {{#gisc_properties.backup_giscs}}
+                            <li>{{.}}</li>
+                          {{/gisc_properties.backup_giscs}}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='frame'>
+                  <a href='#' class='heading' style='color:balck; background-color:#98C7FF; opacity:0.9;'>
+                    <i class='icon-comments-2'></i>Contact
+                  </a>
+                  <div class='content' style='padding-top:10px; background-color:#E9F6FF'>
+                    <div id='contact' class='row' style='margin-top:0px; display:;'>
+                      <div class='span1'></div>
+                      <div class='span4'>
+                        <div class='contact_info'>
+                          <span class='icon-mail title='Mailbox'>
+                          <span>&nbsp;</span>
+                          <span>{{gisc_properties.contact_info.email}}</span>
+                        </div>
+                        <div class='contact_info'>
+                          <span class='icon-phone title='Tel'>
+                          <span>&nbsp;</span>
+                          <span>{{gisc_properties.contact_info.voice}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='row' style='margin-top:0px;'>
+                  <div class='span4 overall_footer'>
+                    JSON<!--<a class='icon-new-tab-2' href='{{monitor_json_url}}' target='_blank'></a>--> updated at {{timestamp}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<input type='hidden' id='service_timeseries_{{centreID}}_portal' dataset='{{_chart.portal}}' />
+<input type='hidden' id='service_timeseries_{{centreID}}_oaiprovider' dataset='{{_chart.oaiprovider}}' />
+<input type='hidden' id='service_timeseries_{{centreID}}_distribution' dataset='{{_chart.distribution}}' />
+<!--
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Val</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>Key</th>
+      <th>Val</th>
+    </tr>
+  </tfoot>
+-->
+</table>
+<script lang='javascript'>
+setAutoZIndex('#window_{{centreID}}');
+
+function showChartMetadataRecords_{{centreID}}() {
+  var contentChartMetadataRecords = "<div id='chart_{{centreID}}_metadata_records' style='padding-top:0px; padding-left:0px; width:800px; height:600px; z-index:999;' class='' dataset='{{_chart.metadata_records}}'></div>";
+  showChartLine('{{centreID}}', 'Metadata records of ' + capitalize('{{centreID}}'), 'metadata_records', contentChartMetadataRecords);
+}
+
+function showChartCacheFiles_{{centreID}}() {
+  var contentChartCacheFiles = "<div id='chart_{{centreID}}_datacache_files' style='padding-top:0px; padding-left:0px; width:800px; height:600px; z-index:999;' class='' dataset='{{_chart.datacache_files}}'></div>";
+  showChartLine('{{centreID}}', '24H cache files of ' + capitalize('{{centreID}}'), 'datacache_files', contentChartCacheFiles);
+}
+
+load_services_status('{{centreID}}');
+setInterval(function() { load_services_status('{{centreID}}'); }, 60000);
+</script>

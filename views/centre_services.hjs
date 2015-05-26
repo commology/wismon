@@ -2,7 +2,7 @@
   <div class='grid' style='margin-bottom:0px;'>
     <div class='row' style='margin-top:0px;'>
       <div class='span5'>
-        <div class='window flat shadow margin10' style='min-height:0px;'>
+        <div class='window flat shadow margin10' style='min-height:0px; cursor:move;'>
           <div class='caption' style=''>
             <div class='icon icon-globe'></div>
             <div class='title'>

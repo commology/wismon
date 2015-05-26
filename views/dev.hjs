@@ -1,23 +1,102 @@
 <script lang='javascript'>
+  function showMap() {
+    var map = AmCharts.makeChart("mapchart", {
+      "type": "map",
+      "theme": "light",
+      "path": "http://wisportal.cma.gov.cn/monitor/test/ammap",
+      "dataProvider": {
+        "map": "worldLow",
+        "getAreasFromMap": true,
+        "images": [
+          {
+            title: "GISC Beijing",
+            id: "Beijing",
+            latitude: 39.9056,
+            longitude: 116.3958
+          }
+        ]
+      },
+      "dragMap": false,
+      "areasSettings": {
+        "autoZoom": false,
+        "color": "#98C7FF",
+        "rollOverColor": "#C9E1FF"
+      },
+      "export": {
+        "enabled": true,
+        "position": "bottom-right"
+      }
+    });
+
+    map.addListener("positionChanged", updateMarkers);
+    //map.addListener("drawn", updateMarkers);
+  }
+  
+  function updateMarkers(event) {
+    var map = event.chart;
+    var image = map.dataProvider.images[0];
+    //if (image.externalElement == undefined)
+      image.externalElement = createMarker(image);
+    image.externalElement.style.top = map.latitudeToY(image.latitude) + "px";
+    image.externalElement.style.left = map.longitudeToX(image.longitude) + "px";
+    moveTile(image.id);
+  }
+  
+  function createMarker(image) {
+    var holder = document.createElement('div');
+    holder.title = image.title;
+    holder.id = image.id;
+    holder.style.position = 'absolute';
+    holder.className = 'icon-target-2 map_marker';
+    $(holder).on('click', function(e) {showTile(this.id);});
+    
+    if (image.chart.chartDiv.hasChildNodes()) {
+      for (var i = 2; i < image.chart.chartDiv.childNodes.length; i++) {
+        if (image.chart.chartDiv.childNodes[i].title == image.title) {
+          image.chart.chartDiv.removeChild(image.chart.chartDiv.childNodes[i]);
+        }
+      }
+    }
+    
+    image.chart.chartDiv.appendChild(holder);
+    //console.log(image.chart.chartDiv.childNodes.length);
+    return holder;
+  }
+
+  function moveTile(id) {
+    var iconID = id;
+    var tileID = id.toLowerCase();
+    var iconElem = $('#' + iconID);
+    var tileElem = $('#' + tileID);
+    var tileOffset = iconElem.offset();
+    tileElem.offset(tileOffset);
+  }
+  
+  function showTile(id) {
+    var iconID = id;
+    var tileID = id.toLowerCase();
+    var iconElem = $('#' + iconID);
+    var tileElem = $('#' + tileID);
+    var tileOffset = tileElem.offset();
+    tileElem.offset(tileOffset);
+    tileElem.fadeIn('fast');
+  }
+  
+  function hideTile(id) {
+    var iconID = capitalize(id);
+    var tileID = id;
+    var iconElem = $('#' + iconID);
+    var tileElem = $('#' + tileID);
+    tileElem.fadeOut('fast');
+  }
+  
   $(document).ready(function() {
-    load_head();
-    load_timeline();
+    loadHead();
+    loadCentres();
+    showMap();
   });
 </script>
-<div class='title'>WMO Common Dashboard (Dev)</div>
-<table width='100%'>
-  <tr>
-    <td style='vertical-align:top;'>
-      <div id='beijing' class='tiles_centre'></div>
-    </td>
-    <td style='vertical-align:top;'>
-      <div id='offenbach' class='tiles_centre'></div>
-    </td>
-    <td style='vertical-align:top;'>
-      <div id='tokyo' class='tiles_centre'></div>
-    </td>
-  </tr>
-</table>
-<div id='timeline' style='font: 10px sans-serif'></div>
+<div id='mapchart' style='position:relative; width:100%; height:800px;'></div>
+<div id='beijing' class='centre centre_tile' style='position:absolute; display:none'></div>
 <script lang='javascript'>
 </script>

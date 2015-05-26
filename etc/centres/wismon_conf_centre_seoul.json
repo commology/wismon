@@ -23,24 +23,24 @@
     "ENABLED": false
   },
   "SERVICES_JSON": {
-    "URL": "",
+    "URL": "http://gisc.kma.go.kr/wismon/monitor.json",
     "CRONTAB": "*/5 * * * *",
-    "ENABLED": false
+    "ENABLED": true
   },
   "MONITOR_JSON": {
-    "URL": "",
+    "URL": "http://gisc.kma.go.kr/wismon/monitor.json",
     "CRONTAB": "5 * * * *",
-    "ENABLED": false
+    "ENABLED": true
   },
   "AORCENTRES_JSON": {
-    "URL": "",
+    "URL": "http://gisc.kma.go.kr/wismon/centres.json",
     "CRONTAB": "5 * * * *",
-    "ENABLED": false
+    "ENABLED": true
   },
   "DOWNTIME_JSON": {
-    "URL": "",
+    "URL": "http://gisc.kma.go.kr/wismon/events.json",
     "CRONTAB": "5 * * * *",
-    "ENABLED": false
+    "ENABLED": true
   },
   "ENABLED": true
 }

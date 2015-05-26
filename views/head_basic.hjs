@@ -10,4 +10,7 @@
   <script lang='javascript' type='text/javascript' src='/monitor/test/js/chart.min.js'></script>
   <script lang='javascript' type='text/javascript' src='/monitor/test/amcharts/amcharts.js'></script>
   <script lang='javascript' type='text/javascript' src='/monitor/test/amcharts/serial.js'></script>
+  <script lang='javascript' type='text/javascript' src='/monitor/test/ammap/ammap.js'></script>
+  <script lang='javascript' type='text/javascript' src='/monitor/test/ammap/maps/js/worldLow.js'></script>
+  <script lang='javascript' type='text/javascript' src='/monitor/test/ammap/themes/light.js'></script>
   <script lang='javascript' type='text/javascript' src='/monitor/test/js/wcd.js'></script>

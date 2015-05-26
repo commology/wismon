@@ -1,0 +1,24 @@
+<div id='window_{{centreID}}' class='contaner' style='position:relative; z-index:999;'>
+  <div class='grid' style='margin-bottom:0px;'>
+    <div class='row' style='margin-top:0px;'>
+      <div class='span1'>
+        <div class='window flat margin10' style='min-width:120px; min-height:0px;' onclick='javascript: alert();'>
+          <div class='caption'>
+            <div class='title'>
+              <div class='item-title' style='font:16px arial;'>{{centre}}</div>
+            </div>
+          </div>
+          <div class='content' style='padding-left:10px; padding-bottom:10px; background-color:#C9E1FF;'>
+            <div id='service_status_{{centreID}}_portal_mini' title='Web Portal' class='icon-home RGYlight_mini' style=""></div>
+            <div id='service_status_{{centreID}}_oaiprovider_mini' title='OAI Provider' class='icon-puzzle RGYlight_mini' style=""></div>
+            <div id='service_status_{{centreID}}_distribution_mini' title='Distribution' class='icon-loop RGYlight_mini' style=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script lang='javascript'>
+load_services_status('{{centreID}}');
+setInterval(function() { load_services_status('{{centreID}}'); }, 60000);
+</script>

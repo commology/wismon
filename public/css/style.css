@@ -14,8 +14,22 @@
   font: 24px arial, sans-serif;
   overflow: hidden;
 }
-.tiles_centre {
+.centre_tile {
   width: 375px;
+}
+.map_marker {
+  margin: -14px -14px;
+  text-align: center;
+  font-size: 18px;
+  text-shadow: 0 0 2px #000;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  box-shadow: 1px 1px 2px #000;
+  color: #eee;
+  background: inherit;
 }
 .RGYlight_mini {
   margin: 2px;
@@ -74,6 +88,10 @@
   color: #888;
   text-align: left;
 }
+.btn-close:hover {
+  cursor: pointer;
+  cursor: hand;
+}
 a {
   color: #000;
 }
@@ -89,6 +107,11 @@ a:visited {
 table.format_grid {
   width: 100%;
   background-color: transparent;
+}
+header {
+  width: 100%;
+  position: fixed;
+  top: 0px;
 }
 footer {
   width: 100%;

@@ -1,15 +1,19 @@
 <script lang='javascript'>
   $(document).ready(function() {
-    load_head();
-    load_centres();
-    load_timeline();
+    loadHead();
+    loadCentres();
+    loadTimeline();
     //load_mdstat();
   });
 </script>
-<div class='title'>WMO Common Dashboard (v.19)</div>
-<div class='subtitle'>GISC Beijing, updated at 2015-2-27</div>
-<div id='beijing' class='tiles_centre' style='position: absolute; left: 0px;'></div>
-<div id='melbourne' class='tiles_centre' style='position: absolute; left: 400px;'></div>
-<div id='offenbach' class='tiles_centre' style='position: absolute; left: 800px;'></div>
-<div id='tokyo' class='tiles_centre' style='position: absolute; left: 1200px;'></div>
+<div id='beijing' class='centre centre_tile' style='position:absolute; top:50px; left:0px;'></div>
+<div id='brasilia' class='centre centre_tile' style='position:absolute; top:50px; left:400px;'></div>
+<div id='casablanca' class='centre centre_tile' style='position:absolute; top:50px; left:800px;'></div>
+<div id='exeter' class='centre centre_tile' style='position:absolute; top:350px; left:000px;'></div>
+<div id='melbourne' class='centre centre_tile' style='position:absolute; top:350px; left:400px;'></div>
+<div id='moscow' class='centre centre_tile' style='position:absolute; top:350px; left:800px;'></div>
+<div id='offenbach' class='centre centre_tile' style='position:absolute; top:650px; left:000px;'></div>
+<div id='seoul' class='centre centre_tile' style='position:absolute; top:650px; left:400px;'></div>
+<div id='tokyo' class='centre centre_tile' style='position:absolute; top:650px; left:800px;'></div>
+<div id='toulouse' class='centre centre_tile' style='position:absolute; top:950px; left:0px;'></div>
 <div id='MDStat_'></div>

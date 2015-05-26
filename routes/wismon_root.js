@@ -87,6 +87,10 @@ var installCRONTAB = function () {
         log.info('Events JSON automatically fetch from ' + centreID);
         //console.log(JSON.stringify(monjson, null, '  '));
       });
+      monJSON.fetchJSON(centreID, URL, 'Timeline', function (err, monjson) {
+        log.info('Events JSON automatically fetch from ' + centreID);
+        //console.log(JSON.stringify(monjson, null, '  '));
+      });
     }, [key]);
   }
 }

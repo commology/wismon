@@ -16,7 +16,7 @@ function capitalize(str) {
   return s.substring(0, 1) + str.substring(1);
 }
 
-function load_centre(id) {
+function loadCentre(id, isIcon) {
   if (id) {
     $.ajax({
       url: 'centre/' + id,
@@ -32,15 +32,31 @@ function load_centre(id) {
   }
 }
 
-function load_centres() {
+function loadCentres() {
   // load each centre
-  $('div.tiles_centre').each(function(index) {
+  $('div.centre').each(function(index) {
     var id = $(this).attr('id');
-    load_centre(id);
+    loadCentre(id);
   });
 }
 
-function switch_service_status(id, service, green) {
+function load_monjson(id) {
+  var dt = $('#datatable_overall').DataTable();
+  if (id) {
+    $.ajax({
+      url: '../json/' + id + '/latest',
+      cache: false
+    })
+    .done(function(json) {
+      console.log(json);
+      dt.row.add(['A', 'V1']);
+    });
+  }
+  else {
+  }
+}
+
+function switchServiceStatus(id, service, green) {
   if(green) {
     $('#service_status_' + id + '_' + service + '_mini').removeClass('RGYlight_R');
     $('#service_status_' + id + '_' + service + '_mini').addClass('RGYlight_G');
@@ -55,7 +71,7 @@ function switch_service_status(id, service, green) {
   }
 }
 
-function load_services_status(id) {
+function loadServicesStatus(id) {
   // load services
   $.ajax({
     url: 'services/' + id,
@@ -63,23 +79,23 @@ function load_services_status(id) {
   })
   .done(function(json) {
     if(json.metrics.services.catalogue.status)
-      switch_service_status(id, 'portal', true);
+      switchServiceStatus(id, 'portal', true);
     else
-      switch_service_status(id, 'portal', false);
+      switchServiceStatus(id, 'portal', false);
     
     if(json.metrics.services.oai_pmh.status)
-      switch_service_status(id, 'oaiprovider', true);
+      switchServiceStatus(id, 'oaiprovider', true);
     else
-      switch_service_status(id, 'oaiprovider', false);
+      switchServiceStatus(id, 'oaiprovider', false);
     
     if(json.metrics.services.distribution_system.status)
-      switch_service_status(id, 'distribution', true);
+      switchServiceStatus(id, 'distribution', true);
     else
-      switch_service_status(id, 'distribution', false);
+      switchServiceStatus(id, 'distribution', false);
   });
 }
 
-function load_head() {
+function loadHead() {
   // load head
   $.ajax({
     url: '../head',
@@ -93,19 +109,14 @@ function load_head() {
       timeout: 10000
     });
     $.Notify({
-      caption: 'Let\'s try DRAG !',
-      content: ' ',
-      timeout: 7000
-    });
-    $.Notify({
-      caption: 'Services status are \'intensively\' monitored',
+      caption: 'last updated at 2015-5-25 9 UTC',
       content: ' ',
       timeout: 10000
     });
   });
 }
 
-function load_timeline() {
+function loadTimeline() {
   // load timeline
   $.ajax({
     url: '../json/timeline.json',
@@ -121,30 +132,31 @@ function load_timeline() {
       elem.group = elem.centre;
     });
     
-    var timeline_chart = new links.Timeline(document.getElementById('timeline'));
-    timeline_chart.setOptions({
+    var chartTimeline = new links.Timeline(document.getElementById('timeline'));
+    chartTimeline.setOptions({
       width: '100%',
       min: new Date(2014, 1, 1),
       max: new Date(2020, 1, 1),
       groupsWidth: '150px',
       groupMinHeight: 20,
       showCurrentTime: true,
-      showNavigation: true,
+      showNavigation: false,
       axisOnTop: true
     });
-    timeline_chart.draw(json.events);
+    chartTimeline.draw(json.events);
+    chartTimeline.setVisibleChartRangeNow();
   });
 }
 
-function unload_timeline() {
+function unloadTimeline() {
   $('#timeline').html('');
 }
 
-function toggle_timeline() {
+function toggleTimeline() {
   if ($('#timeline').html() != '')
-    unload_timeline();
+    unloadTimeline();
   else
-    load_timeline();
+    loadTimeline();
 }
 
 function load_mdstat() {
@@ -190,7 +202,6 @@ function hideChart(chartID) {
   chart.toggle(false);
 }
 
-  
 function renderChartLine(centreID, datasetName) {
   var chart = new AmCharts.AmSerialChart();
   chart.pathToImages = '/monitor/test/amcharts/images/';
@@ -269,5 +280,93 @@ function submitJSON(url, json) {
     data: json,
     dataType: 'json'
   });
+}
+
+function showMap(centres) {
+  var map = AmCharts.makeChart("mapchart", {
+    "type": "map",
+    "theme": "light",
+    "path": "../ammap",
+    "dataProvider": {
+      "map": "worldLow",
+      "getAreasFromMap": true,
+      "images": centres,
+    },
+    "dragMap": false,
+    "areasSettings": {
+      "autoZoom": false,
+      "color": "#98C7FF",
+      "rollOverColor": "#C9E1FF"
+    },
+    "zoomControl": {
+      "panControlEnabled": false,
+      "zoomControlEnabled": false
+    },
+    "export": {
+      "enabled": true
+    }
+  });
+
+  map.addListener("positionChanged", updateMarkers);
+}
+
+function updateMarkers(event) {
+  var map = event.chart;
+  for (var i in map.dataProvider.images) {
+    var image = map.dataProvider.images[i];
+    //if (image.externalElement == undefined)
+      image.externalElement = createMarker(image);
+    image.externalElement.style.top = map.latitudeToY(image.latitude) + "px";
+    image.externalElement.style.left = map.longitudeToX(image.longitude) + "px";
+    //moveTile(image.id);
+  }
+}
+
+function createMarker(image) {
+  var marker = document.createElement('div');
+  marker.title = image.title;
+  marker.id = image.id;
+  marker.style.position = 'absolute';
+  marker.className = 'icon-target-2 map_marker';
+  $(marker).on('click', function(e) {showTile(this.id);});
+
+  if (image.chart.chartDiv.hasChildNodes()) {
+    for (var i = 2; i < image.chart.chartDiv.childNodes.length; i++) {
+      if (image.chart.chartDiv.childNodes[i].title == image.title) {
+        image.chart.chartDiv.removeChild(image.chart.chartDiv.childNodes[i]);
+      }
+    }
+  }
+
+  image.chart.chartDiv.appendChild(marker);
+  //console.log(image.chart.chartDiv.childNodes.length);
+  return marker;
+}
+
+function moveTile(id) {
+  var iconID = id;
+  var tileID = id.toLowerCase();
+  var iconElem = $('#' + iconID);
+  var tileElem = $('#' + tileID);
+  var tileOffset = iconElem.offset();
+  tileElem.offset(tileOffset);
+}
+
+function showTile(id) {
+  var iconID = id;
+  var tileID = id.toLowerCase();
+  var iconElem = $('#' + iconID);
+  var tileElem = $('#' + tileID);
+  var tileOffset = tileElem.offset();
+  tileElem.offset(tileOffset);
+  tileElem.fadeIn('fast');
+}
+
+function hideTile(id) {
+  var iconID = capitalize(id);
+  var tileID = id;
+  var iconElem = $('#' + iconID);
+  var tileElem = $('#' + tileID);
+  tileElem.fadeOut('fast');
 }
 

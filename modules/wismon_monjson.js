@@ -60,19 +60,46 @@ var generateJSON_Monitor = function (callback) {
   
   monjson.metrics.rmdcn = cfg.getProp('RMDCN_BANDWIDTH_DIAGRAM_URL');
   
+  var buf;
+  
+  monjson.metrics.metadata_catalogue.number_of_records_at00UTC = null;
   monjson.metrics.metadata_catalogue.number_of_records_at00UTC
    = parseInt(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'metadata_count' + '.dat')).toString());
+  
+  monjson.metrics.metadata_catalogue.number_of_changes_insert_modify = null;
   monjson.metrics.metadata_catalogue.number_of_changes_insert_modify
    = parseInt(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'metadata_updated' + '.dat')).toString());
+  
+  monjson.metrics.metadata_catalogue.number_of_changes_delete = null;
   monjson.metrics.metadata_catalogue.number_of_changes_delete
    = parseInt(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'metadata_deleted' + '.dat')).toString());
   
-  monjson.metrics.services.catalogue.status
-   = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'portal' + '.dat')).toString());
-  monjson.metrics.services.oai_pmh.status
-   = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'provider' + '.dat')).toString());
-  monjson.metrics.services.distribution_system.status
-   = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'intra_ftp' + '.dat')).toString());
+  monjson.metrics.services.catalogue.status = true;
+  buf = utl.trim(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'portal' + '.dat')).toString());
+  if (buf == 'true' || buf == 'false') {
+    monjson.metrics.services.catalogue.status = JSON.parse(buf);
+  }
+  else {
+    console.error('Unknown Portal status: ' + buf + '.');
+  }
+  
+  monjson.metrics.services.oai_pmh.status = true;
+  buf = utl.trim(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'provider' + '.dat')).toString());
+  if (buf == 'true' || buf == 'false') {
+    monjson.metrics.services.oai_pmh.status = JSON.parse(buf);
+  }
+  else {
+    console.error('Unknown OAI-Provider status: ' + buf + '.');
+  }
+  
+  monjson.metrics.services.distribution_system.status = true;
+  buf = utl.trim(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'intra_ftp' + '.dat')).toString());
+  if (buf == 'true' || buf == 'false') {
+    monjson.metrics.services.distribution_system.status = JSON.parse(buf);
+  }
+  else {
+    console.error('Unknown IntraFTP status: ' + buf + '.');
+  }
   
   monjson.metrics.cache_24h.bytes_of_cache_all
    = parseInt(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'cache_bytes' + '.dat')).toString());
@@ -118,12 +145,34 @@ var generateJSON_Services = function (callback) {
   monjson.centre = cfg.getCentreType(null) + ' ' + cfg.getCentreName(null);
   monjson.remarks = cfg.getProp('REMARKS');
   
-  monjson.metrics.services.catalogue.status
-   = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'portal' + '.dat')).toString());
-  monjson.metrics.services.oai_pmh.status
-   = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'provider' + '.dat')).toString());
-  monjson.metrics.services.distribution_system.status
-   = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'intra_ftp' + '.dat')).toString());
+  var buf;
+  
+  monjson.metrics.services.catalogue.status = true;
+  buf = utl.trim(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'portal' + '.dat')).toString());
+  if (buf == 'true' || buf == 'false') {
+    monjson.metrics.services.catalogue.status = JSON.parse(buf);
+  }
+  else {
+    console.error('Unknown Portal status: ' + buf + '.');
+  }
+  
+  monjson.metrics.services.oai_pmh.status = true;
+  buf = utl.trim(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'provider' + '.dat')).toString());
+  if (buf == 'true' || buf == 'false') {
+    monjson.metrics.services.oai_pmh.status = JSON.parse(buf);
+  }
+  else {
+    console.error('Unknown OAI-Provider status: ' + buf + '.');
+  }
+  
+  monjson.metrics.services.distribution_system.status = true;
+  buf = utl.trim(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'intra_ftp' + '.dat')).toString());
+  if (buf == 'true' || buf == 'false') {
+    monjson.metrics.services.distribution_system.status = JSON.parse(buf);
+  }
+  else {
+    console.error('Unknown IntraFTP status: ' + buf + '.');
+  }
   
   /*
   if (!validator.validate(monjson, schema_monitor).valid) {

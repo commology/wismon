@@ -1,0 +1,84 @@
+<script lang='javascript'>
+  var mapCentres =
+  [
+    {
+      title: "GISC Beijing",
+      id: "Beijing",
+      latitude: 39.904211,
+      longitude: 116.407395
+    },
+    {
+      title: "GISC Brasilia",
+      id: "Brasilia",
+      latitude: -14.235004,
+      longitude: -51.92528
+    },
+    {
+      title: "GISC Casablanca",
+      id: "Casablanca",
+      latitude: 33.573110,
+      longitude: -7.589843
+    },
+    {
+      title: "GISC Exeter",
+      id: "Exeter",
+      latitude: 50.718412,
+      longitude: -3.533899
+    },
+    {
+      title: "GISC Melbourne",
+      id: "Melbourne",
+      latitude: -37.814107,
+      longitude: 144.96328
+    },
+    {
+      title: "GISC Moscow",
+      id: "Moscow",
+      latitude: 55.755826,
+      longitude: 37.6173
+    },
+    {
+      title: "GISC Offenbach",
+      id: "Offenbach",
+      latitude: 50.095636,
+      longitude: 8.776084
+    },
+    {
+      title: "GISC Seoul",
+      id: "Seoul",
+      latitude: 37.566535,
+      longitude: 126.977969
+    },
+    {
+      title: "GISC Tokyo",
+      id: "Tokyo",
+      latitude: 35.689487,
+      longitude: 139.691706
+    },
+    {
+      title: "GISC Toulouse",
+      id: "Toulouse",
+      latitude: 43.604652,
+      longitude: 1.444209
+    }
+  ];
+
+  $(document).ready(function() {
+    loadHead();
+    loadCentres();
+    //loadTimeline();
+    showMap(mapCentres);
+  });
+</script>
+<div id='beijing' class='centre centre_tile' style='position:absolute; top:100px; left:800px; display:none;'></div>
+<div id='brasilia' class='centre centre_tile' style='position:absolute; top:450px; left:0px; display:none;'></div>
+<div id='casablanca' class='centre centre_tile' style='position:absolute; top:450px; left:150px; display:none;'></div>
+<div id='exeter' class='centre centre_tile' style='position:absolute; top:150px; left:180px; display:none;'></div>
+<div id='melbourne' class='centre centre_tile' style='position:absolute; top:500px; left:650px; display:none;'></div>
+<div id='moscow' class='centre centre_tile' style='position:absolute; top:350px; left:780px; display:none;'></div>
+<div id='offenbach' class='centre centre_tile' style='position:absolute; top:50px; left:500px; display:none;'></div>
+<div id='seoul' class='centre centre_tile' style='position:absolute; top:130px; left:800px; display:none;'></div>
+<div id='tokyo' class='centre centre_tile' style='position:absolute; top:150px; left:800px; display:none;'></div>
+<div id='toulouse' class='centre centre_tile' style='position:absolute; top:400px; left:650px; display:none;'></div>
+<div id='mapchart' style='position:relative; width:100%; height:800px; top:50px;'></div>
+<div id='MDStat_'></div>

@@ -1,3 +1,4 @@
+CentreMarker_size = 30px
 RGYlight_mini_size = 26px
 RGYlight_main_size = 60px
 
@@ -18,8 +19,22 @@ RGYlight_main_size = 60px
   font		24px arial,sans-serif
   overflow      hidden
 
-.tiles_centre
+.centre_tile
   width		375px
+
+.map_marker
+  margin	-14px -14px
+  text-align	center
+  font-size	18px
+  text-shadow	0 0 2px #000
+  display	inline-block
+  width		CentreMarker_size
+  height	CentreMarker_size
+  line-height	CentreMarker_size
+  border-radius	50%
+  box-shadow	1px 1px 2px #000
+  color		#EEE
+  background	inherit
 
 .RGYlight_mini
   margin	2px
@@ -78,6 +93,10 @@ RGYlight_main_size = 60px
   color		#888
   text-align	left
 
+.btn-close:hover
+  cursor	pointer
+  cursor	hand
+
 a
   color		#000
 a:link
@@ -90,6 +109,11 @@ a:visited
 table.format_grid
   width		100%
   background-color	transparent
+
+header
+  width		100%
+  position	fixed
+  top		0px
 
 footer
   width		100%

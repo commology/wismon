@@ -1,0 +1,46 @@
+{
+  "NAME": "Exeter",
+  "TYPE": "GISC",
+  "PASSWORD": "",
+  "PORTAL": {
+    "URL": "",
+    "CRONTAB": "5 0 * * *",
+    "ENABLED": false
+  },
+  "OAI_PROVIDER": {
+    "URL": "",
+    "CRONTAB": "10 * * * *",
+    "ENABLED": true
+  },
+  "CACHE24H": {
+    "URL": "",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "DASHBOARD": {
+    "URL": "",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "SERVICES_JSON": {
+    "URL": "http://gisc.marocmeteo.ma/monitor/monitor.json",
+    "CRONTAB": "*/5 * * * *",
+    "ENABLED": true
+  },
+  "MONITOR_JSON": {
+    "URL": "http://gisc.marocmeteo.ma/monitor/monitor.json",
+    "CRONTAB": "* * * * *",
+    "ENABLED": true
+  },
+  "AORCENTRES_JSON": {
+    "URL": "http://gisc.marocmeteo.ma/monitor/centres.json",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": true
+  },
+  "DOWNTIME_JSON": {
+    "URL": "http://gisc.marocmeteo.ma/monitor/events.json",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": true
+  },
+  "ENABLED": true
+}

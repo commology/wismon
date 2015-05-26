@@ -1,0 +1,46 @@
+{
+  "NAME": "Toulouse",
+  "TYPE": "GISC",
+  "PASSWORD": "",
+  "PORTAL": {
+    "URL": "",
+    "CRONTAB": "5 0 * * *",
+    "ENABLED": false
+  },
+  "OAI_PROVIDER": {
+    "URL": "",
+    "CRONTAB": "35 * * * *",
+    "ENABLED": true
+  },
+  "CACHE24H": {
+    "URL": "",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "DASHBOARD": {
+    "URL": "",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "SERVICES_JSON": {
+    "URL": "http://gisc.inmet.gov.br/monitor/getMonitoringResults.xhtml",
+    "CRONTAB": "*/5 * * * *",
+    "ENABLED": true
+  },
+  "MONITOR_JSON": {
+    "URL": "http://gisc.inmet.gov.br/monitor/getMonitoringResults.xhtml",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": true
+  },
+  "AORCENTRES_JSON": {
+    "URL": "",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "DOWNTIME_JSON": {
+    "URL": "",
+    "CRONTAB": "5 * * * *",
+    "ENABLED": false
+  },
+  "ENABLED": true
+}

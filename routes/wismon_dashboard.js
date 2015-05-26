@@ -24,14 +24,14 @@ var renderGISC_Monitor = function (monjson, req, res) {
   &&  monjson.metrics.metadata_catalogue.number_of_changes_insert_modify >= 0) {
   }
   else {
-     monjson.metrics.metadata_catalogue.number_of_changes_insert_modify = 0;
+    monjson.metrics.metadata_catalogue.number_of_changes_insert_modify = 0;
   }
   
   if (monjson.metrics.metadata_catalogue.number_of_changes_delete
   &&  monjson.metrics.metadata_catalogue.number_of_changes_delete >= 0) {
   }
   else {
-     monjson.metrics.metadata_catalogue.number_of_changes_delete = 0;
+    monjson.metrics.metadata_catalogue.number_of_changes_delete = 0;
   }
   
   monjson.metrics.services.oai_pmh.status = JSON.parse(monjson.metrics.services.oai_pmh.status);
@@ -50,7 +50,7 @@ var renderGISC_Monitor = function (monjson, req, res) {
   &&  monjson.metrics.cache_24h.number_of_unique_products_without_metadata_AMDCN >= 0) {
   }
   else {
-     monjson.metrics.cache_24h.number_of_unique_products_without_metadata_AMDCN = 0;
+    monjson.metrics.cache_24h.number_of_unique_products_without_metadata_AMDCN = 0;
   }
   
   res.charset = 'utf-8';
@@ -63,7 +63,7 @@ var renderGISC_Monitor = function (monjson, req, res) {
 }
 
 router.get('/', function(req, res) {
-  res.redirect('dashboard/tiles');
+  res.redirect('dashboard/map');
 });
 
 router.get('/dashboard/tiles', function(req, res) {
@@ -71,13 +71,30 @@ router.get('/dashboard/tiles', function(req, res) {
 });
 
 router.get('/tiles', function(req, res) {
-  log.info('Dashboard request from ' + req.ip + ' ' + req.ips);
+  log.info('Dashboard/Tiles request from ' + req.ip + ' ' + req.ips);
+  res.redirect('map');
   
   var json = {};
   json.partials = 
               {
                 head: 'head_basic',
                 body: 'tiles',
+                header: 'header_bar',
+                footer: 'footer_timeline'
+              };
+  res.charset = 'utf-8';
+  res.render('dashboard', json);
+});
+ 
+router.get('/map', function(req, res) {
+  log.info('Dashboard/Map request from ' + req.ip + ' ' + req.ips);
+  
+  var json = {};
+  json.partials = 
+              {
+                head: 'head_basic',
+                body: 'map',
+                header: 'header_bar',
                 footer: 'footer_timeline'
               };
   res.charset = 'utf-8';
@@ -92,13 +109,14 @@ router.get('/dev', function(req, res) {
               {
                 head: 'head_basic',
                 body: 'dev',
+                header: 'header_bar'
               };
   res.charset = 'utf-8';
   res.render('dashboard', json);
 });
 
 router.get('/centre/:name', function(req, res) {
-  log.info('GISC ' + req.params.name + ' request from ' + req.ip + ' ' + req.ips);
+  log.info('Centre Tile ' + req.params.name + ' request from ' + req.ip + ' ' + req.ips);
   
   if (!req.xhr) {
     res.sendStatus(404);
@@ -143,6 +161,12 @@ router.get('/centre/:name', function(req, res) {
         centreID = cfg.getProp('WIS_CENTRE_ID');
       result.centreID = centreID;
       result._chart = {};
+      
+      if (req.query.icon) {
+        renderGISC_Monitor(result, req, res);
+        return;
+      }
+      
       async.parallel([
         function(callback) {
           monJSON.queryMetrics('METRIC:Monitor:' + centreID + ':web_portal', function (dataset) {

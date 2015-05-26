@@ -3,6 +3,14 @@
     "_include": "centres/wismon_conf_centre_beijing.json",
     "ENABLED": true
   },
+  "brasilia": {
+    "_include": "centres/wismon_conf_centre_brasilia.json",
+    "ENABLED": true
+  },
+  "casablanca": {
+    "_include": "centres/wismon_conf_centre_casablanca.json",
+    "ENABLED": true
+  },
   "exeter": {
     "_include": "centres/wismon_conf_centre_exeter.json",
     "ENABLED": true

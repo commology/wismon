@@ -5,6 +5,7 @@
   {{/head}}
 </head>
 <body class='metro'>
+  {{>header}}
   {{>body}}
   {{>footer}}
 </body>

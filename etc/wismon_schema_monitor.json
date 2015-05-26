@@ -13,7 +13,7 @@
             "type":"object",
             "id": "http://jsonschema.net/gisc_properties",
             "required":true,
-            "properties": {
+            "properties":{
                 "backup_giscs": {
                     "type":"array",
                     "id": "http://jsonschema.net/gisc_properties/backup_giscs",
@@ -24,6 +24,8 @@
                             "id": "http://jsonschema.net/gisc_properties/backup_giscs/0",
                             "required":false
                         }
+                    
+
                 },
                 "catalogue_url": {
                     "type":"string",
@@ -48,7 +50,7 @@
                     }
                 },
                 "events_url": {
-                    "type":"string",
+                    "type":["string","null"],
                     "id": "http://jsonschema.net/gisc_properties/events_url",
                     "required":false
                 },
@@ -58,7 +60,7 @@
                     "required":false
                 },
                 "monitor_url": {
-                    "type":"string",
+                    "type":["string","null"],
                     "id": "http://jsonschema.net/gisc_properties/monitor_url",
                     "required":false
                 },
@@ -134,7 +136,7 @@
                     }
                 },
                 "rmdcn": {
-                    "type":"string",
+                    "type":["string","null"],
                     "id": "http://jsonschema.net/metrics/rmdcn",
                     "required":false
                 },
@@ -184,7 +186,7 @@
             }
         },
         "remarks": {
-            "type":"string",
+            "type":["string","null"],
             "id": "http://jsonschema.net/remarks",
             "required":false
         },
@@ -200,3 +202,4 @@
         }
     }
 }
+

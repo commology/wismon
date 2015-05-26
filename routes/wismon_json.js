@@ -104,6 +104,24 @@ router.put('/:username/:filename', acl.allowUploadJSON, function (req, res) {
 });
 */
 
+router.get('/:username/latest', function(req, res) {
+  log.info('GET latest JSON ' + req.params.username + ' request from ' + req.ip + ' ' + req.ips);
+
+  var filename = 'monitor.json';
+
+  if (!req.xhr) {
+    res.sendStatus(404);
+    return;
+  }
+
+  var monjson = fs.readFileSync(path.resolve('json', req.params.username, filename));
+  monjson = monjson.toString();
+  
+  res.charset = 'utf-8';
+  res.type('application/json');
+  res.send(monjson);
+});
+
 router.use('/:username/', acl.allowUploadJSON, function (req, res, next) {
   var http_username = acl.getHTTPUsername(req);
   var username = req.params.username;
