@@ -24,8 +24,6 @@
                             "id": "http://jsonschema.net/gisc_properties/backup_giscs/0",
                             "required":false
                         }
-                    
-
                 },
                 "catalogue_url": {
                     "type":"string",
@@ -202,4 +200,3 @@
         }
     }
 }
-

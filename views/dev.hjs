@@ -28,27 +28,52 @@
       }
     });
 
-    map.addListener("positionChanged", updateMarkers);
+    map.addListener("positionChanged", updateMarkersX);
     //map.addListener("drawn", updateMarkers);
   }
   
-  function updateMarkers(event) {
+  function updateMarkersX(event) {
     var map = event.chart;
     var image = map.dataProvider.images[0];
     //if (image.externalElement == undefined)
-      image.externalElement = createMarker(image);
+      image.externalElement = createMarkerX(image);
     image.externalElement.style.top = map.latitudeToY(image.latitude) + "px";
     image.externalElement.style.left = map.longitudeToX(image.longitude) + "px";
     moveTile(image.id);
   }
   
-  function createMarker(image) {
+  function createMarkerX(image) {
+    
     var holder = document.createElement('div');
     holder.title = image.title;
     holder.id = image.id;
     holder.style.position = 'absolute';
     holder.className = 'icon-target-2 map_marker';
-    $(holder).on('click', function(e) {showTile(this.id);});
+    $(holder).on('click', function(e) {alert(''); showTile(this.id);});
+    
+    var pie_tl = document.createElement('div');
+    pie_tl.id = 'servicestatus_' + image.id.toLowerCase() + '_pie_tl';
+    pie_tl.style.position = 'absolute';
+    pie_tl.className = 'icon-target-2 map_marker map_marker_pie_tl map_marker_pie_G';
+    holder.appendChild(pie_tl);
+    
+    var pie_tr = document.createElement('div');
+    pie_tr.id = image.id + '_pie_tr';
+    pie_tr.style.position = 'absolute';
+    pie_tr.className = 'icon-target-2 map_marker map_marker_pie_tr map_marker_pie_R';
+    holder.appendChild(pie_tr);
+    
+    var pie_bl = document.createElement('div');
+    pie_bl.id = image.id + '_pie_bl';
+    pie_bl.style.position = 'absolute';
+    pie_bl.className = 'icon-target-2 map_marker map_marker_pie_bl map_marker_pie_R';
+    holder.appendChild(pie_bl);
+    
+    var pie_br = document.createElement('div');
+    pie_br.id = image.id + '_pie_br';
+    pie_br.style.position = 'absolute';
+    pie_br.className = 'icon-target-2 map_marker map_marker_pie_br map_marker_pie_G';
+    holder.appendChild(pie_br);
     
     if (image.chart.chartDiv.hasChildNodes()) {
       for (var i = 2; i < image.chart.chartDiv.childNodes.length; i++) {

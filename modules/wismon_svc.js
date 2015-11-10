@@ -242,6 +242,7 @@ var writeOAIProviderStatusResult = function (err, result) {
 }
 
 var writeMetadataCountResult = function (err, result) {
+  return;
   var count = result[cfg.getProp('HOME_METADATA_SETSPEC')];
   if (!err) {
     fs.writeFile(path.resolve(__dirname, '../tmp/wismon_' + 'metadata_count' + '.dat'), count, function (ferr) {

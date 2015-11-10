@@ -31,6 +31,28 @@
   color: #eee;
   background: inherit;
 }
+.map_marker_pie_tl {
+  margin: 0px -24px;
+  clip: rect(0px, 15px, 15px, 0px);
+}
+.map_marker_pie_tr {
+  margin: 0px -24px;
+  clip: rect(0px, 35px, 15px, 15px);
+}
+.map_marker_pie_bl {
+  margin: 0px -24px;
+  clip: rect(15px, 15px, 35px, 0px);
+}
+.map_marker_pie_br {
+  margin: 0px -24px;
+  clip: rect(15px, 35px, 35px, 15px);
+}
+.map_marker_pie_G {
+  background: #3f0;
+}
+.map_marker_pie_R {
+  background: #f30;
+}
 .RGYlight_mini {
   margin: 2px;
   text-align: center;

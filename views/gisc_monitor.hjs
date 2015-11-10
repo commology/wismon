@@ -11,7 +11,7 @@
 
             <div id='service_status_{{centreID}}_portal_mini' title='Web Portal' class='icon-home RGYlight_mini' style="position:absolute; right:90px; top:0;"></div>
             <div id='service_status_{{centreID}}_oaiprovider_mini' title='OAI Provider' class='icon-puzzle RGYlight_mini' style="position:absolute; right:60px; top:0;"></div>
-            <div id='service_status_{{centreID}}_distribution_mini' title='Distribution' class='icon-loop RGYlight_mini' style="position:absolute; right:30px; top:0;"></div>
+            <div id='service_status_{{centreID}}_distribution_mini' title='Distribution System' class='icon-loop RGYlight_mini' style="position:absolute; right:30px; top:0;"></div>
 
             <div class='btn-close' onclick="hideTile('{{centreID}}')"></div>
           </div>
@@ -33,8 +33,8 @@
                         <div class='status_caption'>OAI Provider</div>
                       </div>
                       <div class='span1'>
-                        <a id='service_status_{{centreID}}_distribution_main' href='#' title='Distribution' class='icon-loop RGYlight_main'></a>
-                        <div class='status_caption'>Distribution</div>
+                        <a id='service_status_{{centreID}}_distribution_main' href='#' title='Distribution System' class='icon-loop RGYlight_main'></a>
+                        <div class='status_caption'>Distribution System</div>
                       </div>
                     </div>
                     <div id='rmdcn' class='row' style='margin-top:0px; padding:10px; display:;'>

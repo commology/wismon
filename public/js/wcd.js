@@ -58,12 +58,16 @@ function load_monjson(id) {
 
 function switchServiceStatus(id, service, green) {
   if(green) {
+    $('#service_status_' + id + '_' + service + '_icon').removeClass('RGYlight_R');
+    $('#service_status_' + id + '_' + service + '_icon').addClass('RGYlight_G');
     $('#service_status_' + id + '_' + service + '_mini').removeClass('RGYlight_R');
     $('#service_status_' + id + '_' + service + '_mini').addClass('RGYlight_G');
     $('#service_status_' + id + '_' + service + '_main').removeClass('RGYlight_R');
     $('#service_status_' + id + '_' + service + '_main').addClass('RGYlight_G');
   }
   else {
+    $('#service_status_' + id + '_' + service + '_icon').removeClass('RGYlight_G');
+    $('#service_status_' + id + '_' + service + '_icon').addClass('RGYlight_R');
     $('#service_status_' + id + '_' + service + '_mini').removeClass('RGYlight_G');
     $('#service_status_' + id + '_' + service + '_mini').addClass('RGYlight_R');
     $('#service_status_' + id + '_' + service + '_main').removeClass('RGYlight_G');
@@ -109,7 +113,7 @@ function loadHead() {
       timeout: 10000
     });
     $.Notify({
-      caption: 'last updated at 2015-5-25 9 UTC',
+      caption: 'last updated at 2015-5-28 8 UTC',
       content: ' ',
       timeout: 10000
     });
@@ -330,6 +334,30 @@ function createMarker(image) {
   marker.className = 'icon-target-2 map_marker';
   $(marker).on('click', function(e) {showTile(this.id);});
 
+  var pie_tl = document.createElement('div');
+  pie_tl.id = 'service_status_' + image.id.toLowerCase() + '_' + 'portal' + '_icon';
+  pie_tl.style.position = 'absolute';
+  pie_tl.className = 'icon-target-2 map_marker map_marker_pie_tl';
+  marker.appendChild(pie_tl);
+
+  var pie_tr = document.createElement('div');
+  pie_tr.id = 'service_status_' + image.id.toLowerCase() + '_' + 'oaiprovider' + '_icon';
+  pie_tr.style.position = 'absolute';
+  pie_tr.className = 'icon-target-2 map_marker map_marker_pie_tr';
+  marker.appendChild(pie_tr);
+
+  var pie_bl = document.createElement('div');
+  pie_bl.id = 'service_status_' + image.id.toLowerCase() + '_' + 'distribution' + '_icon';
+  pie_bl.style.position = 'absolute';
+  pie_bl.className = 'icon-target-2 map_marker map_marker_pie_bl';
+  marker.appendChild(pie_bl);
+
+  var pie_br = document.createElement('div');
+  pie_br.id = 'service_status_' + image.id.toLowerCase() + '_' + 'hidden' + '_icon'
+  pie_br.style.position = 'absolute';
+  pie_br.className = 'icon-target-2 map_marker map_marker_pie_br map_marker_pie_G';
+  marker.appendChild(pie_br);
+
   if (image.chart.chartDiv.hasChildNodes()) {
     for (var i = 2; i < image.chart.chartDiv.childNodes.length; i++) {
       if (image.chart.chartDiv.childNodes[i].title == image.title) {
@@ -339,7 +367,7 @@ function createMarker(image) {
   }
 
   image.chart.chartDiv.appendChild(marker);
-  //console.log(image.chart.chartDiv.childNodes.length);
+  loadServicesStatus(image.id.toLowerCase());
   return marker;
 }
 

@@ -2,6 +2,10 @@
     "wmo_wis_monitoring": "1.0",
     "centre": "WIS_CENTRE_NAME",
     "timestamp": "2014-11-10T00:00:00Z",
+    "gisc_properties": {
+        "catalogue_url": "WIS_CENTRE_PORTAL_URL",
+        "oai_url": "WIS_CENTRE_OAI_PROVIDER_URL"
+    },
     "metrics": {
         "services": {
             "oai_pmh": {

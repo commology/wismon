@@ -35,9 +35,11 @@ var generateJSON_Monitor = function (callback) {
   var str = JSON.stringify(templ_monitor);
   var monjson = JSON.parse(str);
   
-  if (!validator.validate(monjson, schema_monitor).valid) {
+  vresult = validator.validate(monjson, schema_monitor);
+  if (!vresult.valid) {
     log.error("Monitor JSON template: schema validation failed!");
-    callback("invalid", null);
+log.error(vresult);
+    callback("invalid", vresult);
   }
   
   var date = new Date();
@@ -116,9 +118,10 @@ var generateJSON_Monitor = function (callback) {
   monjson.metrics.cache_24h.number_of_unique_products_without_metadata_AMDCN
    = parseInt(fs.readFileSync(path.resolve(__dirname, '../tmp/wismon_' + 'cache_unique_without_metadata_AMDCN' + '.dat')).toString());
   
-  if (!validator.validate(monjson, schema_monitor).valid) {
+  vresult = validator.validate(monjson, schema_monitor);
+  if (!vresult.valid) {
     log.error("Monitor JSON instance: schema validation failed!");
-    callback("invalid", null);
+    callback("invalid", vresult);
   }
   
   // console.log(JSON.stringify(monjson, null, '  '));
@@ -130,12 +133,11 @@ var generateJSON_Services = function (callback) {
   var str = JSON.stringify(templ_services);
   var monjson = JSON.parse(str);
   
-  /*
-  if (!validator.validate(monjson, schema_monitor).valid) {
+  vresult = validator.validate(monjson, schema_monitor);
+  if (!vresult.valid) {
     log.error("Monitor JSON template: schema validation failed!");
-    callback("invalid", null);
+    callback("invalid", vresult);
   }
-  */
   
   var date = new Date();
   date.setSeconds(0);
@@ -143,6 +145,8 @@ var generateJSON_Services = function (callback) {
   monjson.timestamp = date.toISOString();
   
   monjson.centre = cfg.getCentreType(null) + ' ' + cfg.getCentreName(null);
+  monjson.gisc_properties.catalogue_url = cfg.getCentreURL(null, 'PORTAL', true);
+  monjson.gisc_properties.oai_url = cfg.getCentreURL(null, 'OAI_PROVIDER', true);
   monjson.remarks = cfg.getProp('REMARKS');
   
   var buf;
@@ -174,12 +178,11 @@ var generateJSON_Services = function (callback) {
     console.error('Unknown IntraFTP status: ' + buf + '.');
   }
   
-  /*
-  if (!validator.validate(monjson, schema_monitor).valid) {
+  vresult = validator.validate(monjson, schema_monitor);
+  if (!vresult.valid) {
     log.error("Monitor JSON instance: schema validation failed!");
-    callback("invalid", null);
+    callback("invalid", vresult);
   }
-  */
   
   // console.log(JSON.stringify(monjson, null, '  '));
   delete monjson['_locals'];
@@ -190,9 +193,10 @@ var generateJSON_AORCentres = function (callback) {
   var str = JSON.stringify(templ_aorcentres);
   var aorjson = JSON.parse(str);
   
-  if (!validator.validate(aorjson, schema_aorcentres).valid) {
+  vresult = validator.validate(aorjson, schema_aorcentres);
+  if (!vresult.valid) {
     log.error("AOR Centres JSON template: schema validation failed!");
-    callback("invalid", null);
+    callback("invalid", vresult);
   }
   
   var date = new Date();
@@ -227,9 +231,10 @@ var generateJSON_AORCentres = function (callback) {
     }
   });
   
-  if (!validator.validate(aorjson, schema_aorcentres).valid) {
+  vresult = validator.validate(aorjson, schema_aorcentres);
+  if (!vresult.valid) {
     log.error("AOR Centres JSON instance: schema validation failed!");
-    callback("invalid", null);
+    callback("invalid", vresult);
   }
   
   // console.log(JSON.stringify(aorjson, null, '  '));
@@ -241,9 +246,10 @@ var generateJSON_Events = function (callback) {
   var str = JSON.stringify(templ_events);
   var eventsjson = JSON.parse(str);
   
-  if (!validator.validate(eventsjson, schema_events).valid) {
+  vresult = validator.validate(eventsjson, schema_events);
+  if (!vresult.valid) {
     log.error("Events JSON template: schema validation failed!");
-    callback("invalid", null);
+    callback("invalid", vresult);
   }
   
   var date = new Date();
@@ -257,9 +263,10 @@ var generateJSON_Events = function (callback) {
     eventsjson.events[i].end = utl.formatISODate(eventsjson.events[i].end).toISOString();
   }
   
-  if (!validator.validate(eventsjson, schema_events).valid) {
+  vresult = validator.validate(eventsjson, schema_events);
+  if (!vresult.valid) {
     log.error("Events JSON instance: schema validation failed!");
-    callback("invalid", null);
+    callback("invalid", vresult);
   }
   
   // console.log(JSON.stringify(eventsjson, null, '  '));
@@ -271,9 +278,10 @@ var generateJSON_Timeline = function (callback) {
   var str = JSON.stringify(templ_events);
   var eventsjson = JSON.parse(str);
   
-  if (!validator.validate(eventsjson, schema_events).valid) {
+  vresult = validator.validate(eventsjson, schema_events);
+  if (!vresult.valid) {
     log.error("Events JSON template: schema validation failed!");
-    callback("invalid", null);
+    callback("invalid", vresult);
   }
   
   var date = new Date();
@@ -307,9 +315,10 @@ var generateJSON_Timeline = function (callback) {
     }
   });
   
-  if (!validator.validate(eventsjson, schema_events).valid) {
+  vresult = validator.validate(eventsjson, schema_events);
+  if (!vresult.valid) {
     log.error("Events JSON instance: schema validation failed!");
-    callback("invalid", null);
+    callback("invalid", vresult);
   }
   
   // console.log(JSON.stringify(aorjson, null, '  '));
@@ -651,8 +660,9 @@ exports.getJSON = function (centreID, jsonURL, type, callback) {
       delete json['url'];
       if (type == 'Timeline') {
         schema = schema_events;
-        if (!validator.validate(json, schema_events).valid) {
-          callback('invalid', result);
+        vresult = validator.validate(json, schema_events);
+        if (!vresult.valid) {
+          callback('invalid', vresult);
         }
         else {
           callback(null, json);
@@ -660,16 +670,18 @@ exports.getJSON = function (centreID, jsonURL, type, callback) {
       }
       if (type == 'Events') {
         schema = schema_events;
-        if (!validator.validate(json, schema_events).valid) {
-          callback('invalid', result);
+        vresult = validator.validate(json, schema_events);
+        if (!vresult.valid) {
+          callback('invalid', vresult);
         }
         else {
           callback(null, json);
         }
       }
       if (type == 'AORCentres') {
-        if (!validator.validate(json, schema_aorcentres).valid) {
-          callback('invalid', result);
+        vresult = validator.validate(json, schema_aorcentres);
+        if (!vresult.valid) {
+          callback('invalid', vresult);
         }
         else {
           callback(null, json);
@@ -677,15 +689,16 @@ exports.getJSON = function (centreID, jsonURL, type, callback) {
       }
       if (type == 'Services') {
         //if (!validator.validate(json, schema_services).valid) {
-        //  callback('invalid', result);
+        //  callback('invalid', json);
         //}
         //else {
           callback(null, json);
         //}
       }
       if (type == 'Monitor') {
-        if (!validator.validate(json, schema_monitor).valid) {
-          callback('invalid', result);
+        vresult = validator.validate(json, schema_monitor);
+        if (!vresult.valid) {
+          callback('invalid', vresult);
         }
         else {
           callback(null, json);
